@@ -32,6 +32,8 @@ class Game {
        -----------------------------
 
 Game is automatically scaled from 1920x1080 to width and height of window
+Coordinates are in 1920x1080 but are scaled to fit whatever the current size is,
+so (960, 540) is in the middle of the screen regardless of the actual size
 
 */
 
