@@ -31,7 +31,7 @@ class Character extends Entity {
 	}
 
 	curveOffset(value, seed) {
-		return value + (Math.sin((game.frameCounter - (seed * 25)) / 100) * 7)
+		return value + (Math.sin((game.frameCounter - (seed * 12)) / 40) * 10)
 	}
 }
 

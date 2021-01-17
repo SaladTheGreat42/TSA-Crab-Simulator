@@ -5,15 +5,19 @@ class Game {
 		this.canvas = make("canvas")
 		document.body.appendChild(this.canvas)
 		this.ctx = this.canvas.getContext("2d")
-		this.perf = 0 // for FPS calulation
 		this.entities = {}
 		this.frameCounter = 0
+		this.fpsInterval = 1000 / 60
 	}
 
-	initialize() { // puts initial update and draw functions into one function
-		this.update()
-		this.draw()
-		window.requestAnimationFrame(this.initialize.bind(this)) // calls next frame + fancy stuff so "this" works
+	loop(now) { // puts update and draw functions into one function
+		let elapsed = now - this.fpsThen
+		if(elapsed > this.fpsInterval) { // makes sure fps is locked at 60
+			this.update()
+			this.draw()
+			this.fpsThen = now - (elapsed % this.fpsInterval)
+		}
+		window.requestAnimationFrame(this.loop.bind(this)) // calls next frame + fancy stuff so "this" works
 	}
 
 	update() { // updates game logic
@@ -41,7 +45,7 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 	draw(timestep) { // draws to the screen
 		// update canvas size
 		this.canvas.height = window.innerHeight
-		this.canvas.width = window.innerHeight * (16/9)
+		this.canvas.width = window.innerHeight * (16 / 9)
 		this.ctx.scale(this.canvas.width / 1920, this.canvas.height / 1080)
 		// clear screen
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -51,8 +55,6 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 		this.ctx.rect(0, 0, 960, 1080)
 		this.ctx.fillStyle = "#272838"
 		this.ctx.fill()
-
-		this.debugText(`${Math.floor(this.calculateFPS())} fps`) // fps counter
 
 		for(let name of Object.keys(this.entities)) { // loop through every entity and draw it to screen
 			this.entities[name].draw()
@@ -72,13 +74,6 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 
 	deleteEntity(name) {
 		delete this.entities[name]
-	}
-
-	calculateFPS() { // returns fps
-		let perf = performance.now()
-		let elapsed = perf - this.perf
-		this.perf = perf
-		return 1000 / elapsed
 	}
 
 }
