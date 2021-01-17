@@ -9,31 +9,55 @@ class Game {
 	}
 
 	initialize() { // puts initial update and draw functions into one function
+
+		this.image = make("img")
+		this.image.src = "./assets/gnome.png"
+
 		this.update()
 		this.draw()
-		window.requestAnimationFrame(this.initialize.bind(this)) // calls next frame
+		window.requestAnimationFrame(this.initialize.bind(this)) // calls next frame + fancy stuff so "this" works
 	}
 
 	update() { // updates game logic
 
 	}
 
+/*
+                   1920px
+       -----------------------------
+       |                           |
+1080px |     16:9 aspect ratio     |
+       |                           |
+       |                           |
+       -----------------------------
+
+Game is automatically scaled from 1920x1080 to width and height of window
+
+*/
+
 	draw(timestep) { // draws to the screen
 		// update canvas size
-		this.canvas.width = window.innerWidth
 		this.canvas.height = window.innerHeight
-		//this.ctx.scale()
+		this.canvas.width = window.innerHeight * (16/9)
+		this.ctx.scale(this.canvas.width / 1920, this.canvas.height / 1080)
 		// clear screen
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-		this.ctx.beginPath();
-		this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-		this.ctx.fillStyle = "#272838";
-		this.ctx.fill();
+		// test rectangle fills half of screen to test scaling
+		this.ctx.beginPath()
+		this.ctx.rect(0, 0, 960, 1080)
+		this.ctx.fillStyle = "#272838"
+		this.ctx.fill()
 
+		this.debugText(`${Math.floor(this.calculateFPS())} fps`)
+
+		this.ctx.drawImage(this.image, 960, 540)
+	}
+
+	debugText(text) {
 		this.ctx.font = "32px Comic Sans MS"
 		this.ctx.fillStyle = "#F9F8F8";
-		this.ctx.fillText(this.calculateFPS(), 10, 10 + 32) // fps counter
+		this.ctx.fillText(text, 10, 42)
 	}
 
 	calculateFPS() { // returns fps
