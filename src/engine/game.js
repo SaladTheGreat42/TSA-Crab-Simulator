@@ -6,20 +6,21 @@ class Game {
 		document.body.appendChild(this.canvas)
 		this.ctx = this.canvas.getContext("2d")
 		this.perf = 0 // for FPS calulation
+		this.entities = {}
+		this.frameCounter = 0
 	}
 
 	initialize() { // puts initial update and draw functions into one function
-
-		this.image = make("img")
-		this.image.src = "./assets/gnome.png"
-
 		this.update()
 		this.draw()
 		window.requestAnimationFrame(this.initialize.bind(this)) // calls next frame + fancy stuff so "this" works
 	}
 
 	update() { // updates game logic
-
+		for(let name of Object.keys(this.entities)) { // loop through every entity and update them
+			this.entities[name].update()
+		}
+		this.frameCounter++
 	}
 
 /*
@@ -31,9 +32,9 @@ class Game {
        |                           |
        -----------------------------
 
-Game is automatically scaled from 1920x1080 to width and height of window
+Game is automatically scaled from 1920x1080 to width and height of window.
 Coordinates are in 1920x1080 but are scaled to fit whatever the current size is,
-so (960, 540) is in the middle of the screen regardless of the actual size
+so (960, 540) is in the middle of the screen regardless of the actual size.
 
 */
 
@@ -51,15 +52,26 @@ so (960, 540) is in the middle of the screen regardless of the actual size
 		this.ctx.fillStyle = "#272838"
 		this.ctx.fill()
 
-		this.debugText(`${Math.floor(this.calculateFPS())} fps`)
+		this.debugText(`${Math.floor(this.calculateFPS())} fps`) // fps counter
 
-		this.ctx.drawImage(this.image, 960, 540)
+		for(let name of Object.keys(this.entities)) { // loop through every entity and draw it to screen
+			this.entities[name].draw()
+		}
 	}
 
 	debugText(text) {
-		this.ctx.font = "32px Comic Sans MS"
-		this.ctx.fillStyle = "#F9F8F8";
-		this.ctx.fillText(text, 10, 42)
+		this.ctx.font = "16px Comic Sans MS"
+		this.ctx.fillStyle = "#F9F8F8"
+		this.ctx.fillText(text, 10, 26)
+	}
+
+	newEntity(name, entity) {
+		entity.name = name
+		this.entities[name] = entity
+	}
+
+	deleteEntity(name) {
+		delete this.entities[name]
 	}
 
 	calculateFPS() { // returns fps
