@@ -21,12 +21,20 @@ class Entity {
 class Character extends Entity {
 	constructor(x, y, images) {
 		super(x, y)
-		this.images = images
+		this.images = {}
+		for(let image in images) {
+			this.images[image] = {}
+			this.images[image].image = images[image]
+			this.images[image].x = 0
+			this.images[image].y = 0
+		}
 	}
 
 	draw() {
-		for(let index in this.images) {
-			game.ctx.drawImage(this.images[index], this.curveOffset(this.x, index), this.curveOffset(this.y, index - 5))
+		let i = 0
+		for(let image in this.images) {
+			game.ctx.drawImage(this.images[image].image, this.curveOffset(this.x + this.images[image].x, i), this.curveOffset(this.y + this.images[image].y, i - 1))
+			i++
 		}
 	}
 

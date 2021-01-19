@@ -8,6 +8,7 @@ class Game {
 		this.entities = {}
 		this.frameCounter = 0
 		this.fpsInterval = 1000 / 60
+		this.fpsThen = 0
 	}
 
 	loop(now) { // puts update and draw functions into one function
@@ -17,6 +18,7 @@ class Game {
 			this.draw()
 			this.fpsThen = now - (elapsed % this.fpsInterval)
 		}
+		//console.log(2)
 		window.requestAnimationFrame(this.loop.bind(this)) // calls next frame + fancy stuff so "this" works
 	}
 

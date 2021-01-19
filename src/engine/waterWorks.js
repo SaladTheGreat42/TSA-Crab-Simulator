@@ -12,10 +12,9 @@ function newImage(file) {
 	return image
 }
 
-function newImages(array) {
-	let finalArray = []
-	for(image of array) {
-		finalArray.push(newImage(image))
+function newImages(object) {
+	for(let key of Object.keys(object)) {
+		object[key] = newImage(object[key])
 	}
-	return finalArray
+	return object
 }
