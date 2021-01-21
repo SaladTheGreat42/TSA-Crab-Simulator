@@ -18,6 +18,23 @@ class Entity {
 	}
 }
 
+class Textbox extends Entity {
+	constructor(x, y, image, text){
+		super(x, y)
+		this.x = x
+		this.y = y
+		this.image = image
+		this.text = text
+	}
+
+	draw() {
+		game.ctx.drawImage(this.image, this.x, this.y)
+		game.ctx.font = "50px Arial"
+		game.ctx.fillText(this.text, this.x+40, this.y+90)
+	}
+
+}
+
 class Character extends Entity {
 	constructor(x, y, images) {
 		super(x, y)
@@ -43,4 +60,4 @@ class Character extends Entity {
 	}
 }
 
-export { Entity, Character }
+export { Entity, Character, Textbox }
