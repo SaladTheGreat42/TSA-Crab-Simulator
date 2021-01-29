@@ -11,30 +11,45 @@ class Entity {
 
 	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-		game.newEntity("textbox", textbox)
-		for(let c of string) {
-			textbox.text += c
-			switch(c) {
-				case ".":
-				case "!":
-				case "?":
-				case ";":
-					await sleep(.5) // full stop sleep
-					break
-				case ",":
-				case ":":
-					await sleep(.25) // half stop sleep
-					break
-				default:
-					await sleep(textSpeed)
+
+		// TODO : Split long text into multiple Textboxes
+		string = string.split(" ")
+		let textArray = [""]
+		let l = 0
+
+		for(let word of string) {
+			if(textArray[l].length + word.length > 41) {
+				l++
+				textArray[l] = word + " "
+			} else {
+				textArray[l] += word + " "
 			}
 		}
-		textbox.state = 1
-		await new Promise((resolve, reject) => {
-			document.addEventListener("keypress", e => {
-				if(e.key == "Enter") resolve()
-			})
-		})
+
+		game.newEntity("textbox", textbox)
+		for(let line in textArray) {
+			for(let c of textArray[line]) {
+				textbox.text += c
+				switch(c) {
+					case ".":
+					case "!":
+					case "?":
+					case ";":
+						await sleep(.5) // full stop sleep
+						break
+					case ",":
+					case ":":
+						await sleep(.25) // half stop sleep
+						break
+					default:
+						await sleep(textSpeed)
+				}
+			}
+			textbox.text += "\n"
+		}
+
+		textbox.state = 1 // adds little continue button in corner of textbox
+		await inputPromise()
 		textbox.delete()
 		await sleep(wait)
 	}
@@ -64,12 +79,14 @@ class Textbox extends Entity {
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
 		game.ctx.fillStyle = colorBank[this.color]
-		game.ctx.font = "50px Arial" // TODO figure out a good font
+		// this.ctx.font = "16px Monaco"
+		game.ctx.font = "46px Lucida Console" // TODO figure out a good font
 		let lines = this.text.split("\n")
 		for(let line in lines) {
-			game.ctx.fillText(lines[line], this.x+40, this.y+90 + (line * 50))
+			game.ctx.fillText(lines[line], this.x+40, this.y+80 + (line * 58))
 		}
-		if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
+		// if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
+		if(this.state == 1) game.ctx.fillRect(this.x + 1190, this.y + 213, 20, 20)
 	}
 
 }
@@ -100,22 +117,6 @@ class Character extends Entity {
 	}
 
 }
-
-/*
-function tokenize(string) {
-	let array = []
-	while(string.length != 0) {
-		if(string.startsWith("\n")) {
-			array.push("<br>")
-			string = string.substring(2)
-		} else {
-			array.push(string[0])
-			string = string.substring(1)
-		}
-	}
-	return array
-}
-*/
 
 const colorBank = {
 	red: "#FF0000",

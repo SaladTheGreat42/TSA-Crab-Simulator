@@ -1,8 +1,8 @@
 import { Character } from "../entity.js"
 
 class Crab extends Character {
-	constructor(x, y, images) {
-		super(x, y, images)
+	constructor(x, y, images, color) {
+		super(x, y, images, color)
 		this.state = 0
 		/*
 			0 - resting

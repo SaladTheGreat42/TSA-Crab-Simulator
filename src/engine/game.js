@@ -64,7 +64,7 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 	}
 
 	debugText(text) {
-		this.ctx.font = "16px Comic Sans MS"
+		this.ctx.font = "16px Monaco"
 		this.ctx.fillStyle = "#F9F8F8"
 		this.ctx.fillText(text, 10, 26)
 	}
