@@ -43,7 +43,7 @@ async function menu() {
 			}
 		}
 	}
-	
+
 };
 
 window.addEventListener("load", onload)
