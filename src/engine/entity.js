@@ -9,6 +9,36 @@ class Entity {
 		game.ctx.drawImage(this.image, this.x, this.y)
 	}
 
+	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
+		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
+		game.newEntity("textbox", textbox)
+		for(let c of string) {
+			textbox.text += c
+			switch(c) {
+				case ".":
+				case "!":
+				case "?":
+				case ";":
+					await sleep(.5) // full stop sleep
+					break
+				case ",":
+				case ":":
+					await sleep(.25) // half stop sleep
+					break
+				default:
+					await sleep(textSpeed)
+			}
+		}
+		textbox.state = 1
+		await new Promise((resolve, reject) => {
+			document.addEventListener("keypress", e => {
+				if(e.key == "Enter") resolve()
+			})
+		})
+		textbox.delete()
+		await sleep(wait)
+	}
+
 	update() {
 
 	}
@@ -45,8 +75,9 @@ class Textbox extends Entity {
 }
 
 class Character extends Entity {
-	constructor(x, y, images) {
+	constructor(x, y, images, color) {
 		super(x, y)
+		this.color = color
 		this.images = {}
 		for(let image in images) {
 			this.images[image] = {}
@@ -68,36 +99,6 @@ class Character extends Entity {
 		return value + (Math.sin((game.frameCounter - (seed * 12)) / 40) * 10)
 	}
 
-	// TODO get input from player
-	async speak(string, color = "black", wait = 1, textSpeed = 0.04) {
-		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-		game.newEntity("textbox", textbox)
-		for(let c of string) {
-			textbox.text += c
-			switch(c) {
-				case ".":
-				case "!":
-				case "?":
-				case ";":
-					await sleep(.5) // full stop sleep
-					break
-				case ",":
-				case ":":
-					await sleep(.25) // half stop sleep
-					break
-				default:
-					await sleep(textSpeed)
-			}
-		}
-		textbox.state = 1
-		await new Promise((resolve, reject) => {
-			document.addEventListener("keypress", e => {
-				if(e.key == "Enter") resolve()
-			})
-		})
-		textbox.delete()
-		await sleep(wait)
-	}
 }
 
 /*
