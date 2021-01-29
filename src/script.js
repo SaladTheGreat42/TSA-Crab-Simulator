@@ -11,21 +11,22 @@ async function onload() {
 	if (finalToggle == false){
 		game.newEntity("creditsTest", new Entity(0, 0, newImage("./assets/creditsTest.png")))
 	} else {
-	game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/under_da_sea.png")))
-	game.newEntity("test", new Entity(400, 200, newImage("./assets/gnome.png")))
-	//game.newEntity("textbackground", new Textbox(344, 800, newImage("./assets/textbox_background_test.png"), "Hello Crab."))
-	//Textbox coords : 344, 800
-	let player = game.newEntity("playerTest", new Crab(1000, 300, newImages({
-		body: "./assets/crab/crab_body.png",
-		arms: "./assets/crab/crab_arms.png",
-		eyes: "./assets/crab/crab_eyes.png",
-		legs: "./assets/crab/crab_legs.png"
-	})))
-	await sleep(1)
-	await player.speak("Hello. My name is Inignome Montoya. You killed my\nfather. Prepare to die.", "yellow")
-	await player.speak("Well fuck", "cyan")
+		game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/under_da_sea.png")))
+		game.newEntity("test", new Entity(400, 200, newImage("./assets/gnome.png")))
+		//game.newEntity("textbackground", new Textbox(344, 800, newImage("./assets/textbox_background_test.png"), "Hello Crab."))
+		//Textbox coords : 344, 800
+		let player = game.newEntity("playerTest", new Crab(1000, 300, newImages({
+			body: "./assets/crab/crab_body.png",
+			arms: "./assets/crab/crab_arms.png",
+			eyes: "./assets/crab/crab_eyes.png",
+			legs: "./assets/crab/crab_legs.png"
+		})))
+		await sleep(1)
+		await player.speak("Hello. My name is Inignome Montoya. You killed my\nfather. Prepare to die.", "yellow")
+		await player.speak("Well fuck", "cyan")
+	}
 }
-}
+
 async function menu(){
 	let toggle = true;
 	game.newEntity("menu", new Entity(0, 0, newImage("./assets/mainMenuTest.png")))
@@ -53,8 +54,8 @@ async function menu(){
 			finalToggle = toggle
 			return toggle;
 		})
-}
-await promiseLoop(toggle);
+	}
+	await promiseLoop(toggle);
 };
 
 window.addEventListener("load", onload)
