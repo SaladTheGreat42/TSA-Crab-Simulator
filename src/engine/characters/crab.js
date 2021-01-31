@@ -1,23 +1,26 @@
 import { Character } from "../entity.js"
 
 class Crab extends Character {
-	constructor(x, y, images, color) {
-		super(x, y, images, color)
-		this.state = 0
-		/*
-			0 - resting
-			1 - looking right
-			2 - looking left
-			3 - clicking / speaking
-			4 - scuttling
-		*/
+	constructor(x, y, imageBank, images, color) {
+		super(x, y, imageBank, images, color)
+		this.animation = {
+			clacking: false
+		}
 	}
 
-	draw() {
-		let i = 0
-		for(let image in this.images) {
-			game.ctx.drawImage(this.images[image].image, this.curveOffset(this.x + this.images[image].x, i), this.curveOffset(this.y + this.images[image].y, i - 1))
-			i++
+	update() {
+		if(!(game.frameCount % 15)) {
+			if(this.state.speaking) {
+				if(this.animation.clacking) {
+					this.animation.clacking = false
+					this.images["arms"].image = this.imageBank.arms_1
+				} else {
+					this.animation.clacking = true
+					this.images["arms"].image = this.imageBank.arms
+				}
+			} else {
+				this.animation.clacking = false
+			}
 		}
 	}
 
