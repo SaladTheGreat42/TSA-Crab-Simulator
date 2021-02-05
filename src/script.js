@@ -12,7 +12,7 @@ async function onload() {
 		game.newEntity("creditsTest", new Entity(0, 0, newImage("./assets/creditsTest.png")))
 	} else {
 	game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/under_da_sea.png")))
-	game.newEntity("test", new Entity(400, 200, newImage("./assets/gnome.png")))
+	let gnome = game.newEntity("test", new Character(400, 200, newImages({body: "./assets/gnome.png"})))
 	//game.newEntity("textbackground", new Textbox(344, 800, newImage("./assets/textbox_background_test.png"), "Hello Crab."))
 	//Textbox coords : 344, 800
 	let player = game.newEntity("playerTest", new Crab(1000, 300, newImages({
@@ -22,8 +22,14 @@ async function onload() {
 		legs: "./assets/crab/crab_legs.png"
 	})))
 	await sleep(1)
-	await player.speak("Hello. My name is Inignome Montoya. You killed my\nfather. Prepare to die.", "yellow")
-	await player.speak("Well fuck", "cyan")
+	let choice = await gnome.prompt("Is your name obama", [" Yes", " No"], "blue")
+	if (choice == true){
+		await player.speak("Yes, I am obama.", "red")
+		await gnome.speak("Wowowo", "blue")
+	} else {
+		await player.speak("No, I am not obaa.", "red")
+		await gnome.speak("Wwooow", "blue")
+	}
 }
 }
 async function menu(){
