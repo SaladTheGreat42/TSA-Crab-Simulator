@@ -6,7 +6,7 @@ class Game {
 		document.body.appendChild(this.canvas)
 		this.ctx = this.canvas.getContext("2d")
 		this.entities = {}
-		this.frameCounter = 0
+		this.frameCount = 0
 		this.fpsInterval = 1000 / 60
 		this.fpsThen = 0
 	}
@@ -26,7 +26,7 @@ class Game {
 		for(let name of Object.keys(this.entities)) { // loop through every entity and update them
 			this.entities[name].update()
 		}
-		this.frameCounter++
+		this.frameCount++
 	}
 
 /*
@@ -64,7 +64,7 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 	}
 
 	debugText(text) {
-		this.ctx.font = "16px Comic Sans MS"
+		this.ctx.font = "16px Monaco"
 		this.ctx.fillStyle = "#F9F8F8"
 		this.ctx.fillText(text, 10, 26)
 	}

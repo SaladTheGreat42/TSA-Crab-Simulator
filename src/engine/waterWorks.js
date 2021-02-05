@@ -19,4 +19,12 @@ function newImages(object) {
 	return object
 }
 
+async function inputPromise() {
+	return new Promise((resolve, reject) => {
+		document.addEventListener("keydown", e => {
+			resolve(e.key)
+		})
+	})
+}
+
 const sleep = s => new Promise(r => setTimeout(r, s * 1000))

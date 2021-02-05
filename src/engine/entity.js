@@ -3,10 +3,73 @@ class Entity {
 		this.x = x
 		this.y = y
 		this.image = image
+		this.state = {
+			speaking: false
+		}
+		this.animation = {}
 	}
 
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
+	}
+
+	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
+		this.state.speaking = true
+		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
+
+		// TODO : Split long text into multiple Textboxes
+		string = string.split(" ")
+		let textboxArray = [[""]] // 2D array inf. x 3 containing lines within textboxes
+		let t = 0
+		let l = 0
+
+		for(let word of string) {
+			if(textboxArray[t][l].length + word.length > 41) {
+				l++
+				if(l > 2) { // 2 because line index starts at 0
+					l = 0
+					t++
+				}
+				textboxArray[t + 1] = [""]
+				textboxArray[t][l] = word + " "
+			} else {
+				textboxArray[t][l] += word + " "
+			}
+		}
+		textboxArray.pop() // delete blank textbox
+
+		game.newEntity("textbox", textbox)
+
+		for(let currentTextbox of textboxArray) {
+			for(let line in currentTextbox) {
+				for(let c of currentTextbox[line]) {
+					textbox.text += c
+					switch(c) {
+						case ".":
+						case "!":
+						case "?":
+						case ";":
+							await sleep(.5) // full stop sleep
+							break
+						case ",":
+						case ":":
+							await sleep(.25) // half stop sleep
+							break
+						default:
+							await sleep(textSpeed)
+					}
+				}
+				textbox.text += "\n"
+			}
+			textbox.state = 1 // adds little continue button in corner of textbox
+			this.state.speaking = false
+			await inputPromise()
+			this.state.speaking = true
+			textbox.state = 0
+			textbox.text = ""
+		}
+		textbox.delete()
+		await sleep(wait)
 	}
 
 	update() {
@@ -34,25 +97,29 @@ class Textbox extends Entity {
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
 		game.ctx.fillStyle = colorBank[this.color]
-		game.ctx.font = "50px Arial" // TODO figure out a good font
+		// this.ctx.font = "16px Monaco"
+		game.ctx.font = "46px Lucida Console" // TODO figure out a good font
 		let lines = this.text.split("\n")
 		for(let line in lines) {
-			game.ctx.fillText(lines[line], this.x+40, this.y+90 + (line * 50))
+			game.ctx.fillText(lines[line], this.x+40, this.y+80 + (line * 58))
 		}
-		if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
+		// if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
+		if(this.state == 1) game.ctx.fillRect(this.x + 1190, this.y + 213, 20, 20)
 	}
 
 }
 
 class Character extends Entity {
-	constructor(x, y, images) {
+	constructor(x, y, imageBank, images, color) {
 		super(x, y)
+		this.color = color
+		this.imageBank = imageBank
 		this.images = {}
-		for(let image in images) {
-			this.images[image] = {}
-			this.images[image].image = images[image]
-			this.images[image].x = 0
-			this.images[image].y = 0
+		for(let name of images) {
+			this.images[name] = {}
+			this.images[name].image = imageBank[name]
+			this.images[name].x = 0
+			this.images[name].y = 0
 		}
 	}
 
@@ -65,9 +132,10 @@ class Character extends Entity {
 	}
 
 	curveOffset(value, seed) {
-		return value + (Math.sin((game.frameCounter - (seed * 12)) / 40) * 10)
+		return value + (Math.sin((game.frameCount - (seed * 12)) / 40) * 10)
 	}
 
+<<<<<<< HEAD
 	// TODO get input from player
 	async speak(string, color = "black", wait = 1, textSpeed = 0.04) {
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
@@ -187,8 +255,9 @@ function tokenize(string) {
 		}
 	}
 	return array
+=======
+>>>>>>> 1329eef2aa5a3953e16f42530496b73f74ff84a0
 }
-*/
 
 const colorBank = {
 	red: "#FF0000",
