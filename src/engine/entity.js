@@ -3,6 +3,7 @@ class Entity {
 		this.x = x
 		this.y = y
 		this.image = image
+		this.color = "black"
 		this.state = {
 			speaking: false
 		}
@@ -12,6 +13,7 @@ class Entity {
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
 	}
+
 
 	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
 		this.state.speaking = true
@@ -71,7 +73,67 @@ class Entity {
 		textbox.delete()
 		await sleep(wait)
 	}
+	async prompt(string, optionArray, color = "black", wait = 1, textSpeed = 0.04) {
+		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
+		game.newEntity("textbox", textbox)
+		for(let c of string) {
+			textbox.text += c
+			switch(c) {
+				case ".":
+				case "!":
+				case "?":
+				case ";":
+					await sleep(.5) // full stop sleep
+					break
+				case ",":
+				case ":":
+					await sleep(.25) // half stop sleep
+					break
+				default:
+					await sleep(textSpeed)
+			}
+		}
+		await sleep(wait)
+		textbox.delete()
 
+		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
+		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
+		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black")
+		game.newEntity("promptBackground", promptBackground) //Prepare choice box
+		for (let c of optionArray) {
+			promptBackground.text += "  "
+			promptBackground.text += c
+			promptBackground.text += "\n"
+			promptBackground.text += "\n"
+		}
+		var selector = new Entity(1396, 837, newImage("../../assets/crabClaw.png"))
+		game.newEntity("clawSelector", selector) //Create selector
+
+		var toggle = true; //Prep choice code
+
+		while(true) { // Choice code, wtf is .includes
+			let input = await inputPromise()
+			if(input == "Enter") {
+				promptBox.delete()
+				promptBackground.delete()
+				selector.delete() // Delete everything
+
+				await sleep(wait)
+				return toggle // Return result
+			}
+			if(["w", "s", "ArrowUp", "ArrowDown"].includes(input)) {
+				toggle = toggle ? false : true
+				if(toggle) {
+					selector.y = 837
+				} else {
+					selector.y = 957
+				}
+			}
+		}
+
+
+
+	}
 	update() {
 
 	}
@@ -135,8 +197,7 @@ class Character extends Entity {
 		return value + (Math.sin((game.frameCount - (seed * 12)) / 40) * 10)
 	}
 
-<<<<<<< HEAD
-	// TODO get input from player
+
 	async speak(string, color = "black", wait = 1, textSpeed = 0.04) {
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
 		game.newEntity("textbox", textbox)
@@ -166,83 +227,9 @@ class Character extends Entity {
 		textbox.delete()
 		await sleep(wait)
 	}
-	async prompt(string, optionArray, color = "black", wait = 1, textSpeed = 0.04) {
-		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-		game.newEntity("textbox", textbox)
-		for(let c of string) {
-			textbox.text += c
-			switch(c) {
-				case ".":
-				case "!":
-				case "?":
-				case ";":
-					await sleep(.5) // full stop sleep
-					break
-				case ",":
-				case ":":
-					await sleep(.25) // half stop sleep
-					break
-				default:
-					await sleep(textSpeed)
-			}
-		}
-		await sleep(wait)
-		textbox.delete()
-
-		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
-		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
-		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black")
-		game.newEntity("promptBackground", promptBackground) //Prepare choice box
-		for (let c of optionArray) {
-			promptBackground.text += "  "
-			promptBackground.text += c
-			promptBackground.text += "\n"
-			promptBackground.text += "\n"
-		}
-		var selector = new Entity(1396, 847, newImage("../../assets/crabClaw.png"))
-		game.newEntity("clawSelector", selector) //Create selector
-
-		var toggle = true;
-		var finalToggle = true; //Prep choice code
-
-		async function promiseLoop(toggle) {
-			console.log(toggle)
-			const inputPromise = new Promise((resolve, reject) => {
-			document.addEventListener("keypress", e => {
-				if(e.key == "Enter") reject(toggle)
-				else if (e.key == "w" || e.key == "s"){
-					resolve(toggle)
-				}
-			})
-		})
-			await inputPromise.then(async (toggle) => {
-				toggle = !toggle;
-				selector.delete()
-				if (toggle == false) selector = game.newEntity("clawSelector", new Entity(1396, 947, newImage("./assets/crabClaw.png")))
-				else if (toggle == true) selector = game.newEntity("clawSelector", new Entity(1396, 847, newImage("./assets/crabClaw.png")))
-
-				console.log(toggle)
-			 	await promiseLoop(toggle);
-			}).catch((toggle) => {
-				console.log(toggle)
-				finalToggle = toggle
-				return toggle;
-		})
-	}  //Choice code
-
-		await promiseLoop(toggle);
-		promptBox.delete()
-		promptBackground.delete()
-		selector.delete() // Delete everything
-
-		await sleep(wait)
-		return finalToggle // Return result
 
 }
 
-}
-
-/*
 function tokenize(string) {
 	let array = []
 	while(string.length != 0) {
@@ -255,8 +242,6 @@ function tokenize(string) {
 		}
 	}
 	return array
-=======
->>>>>>> 1329eef2aa5a3953e16f42530496b73f74ff84a0
 }
 
 const colorBank = {
