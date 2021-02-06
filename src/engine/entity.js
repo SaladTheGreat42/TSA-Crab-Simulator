@@ -38,7 +38,7 @@ class Entity {
 				textboxArray[t][l] += word + " "
 			}
 		}
-		textboxArray.pop() // delete blank textbox
+		if(textboxArray[textboxArray.length - 1][0] == "") textboxArray.pop() // if the last textbox is empty, delete
 
 		game.newEntity("textbox", textbox)
 
@@ -73,7 +73,9 @@ class Entity {
 		textbox.delete()
 		await sleep(wait)
 	}
+
 	async prompt(string, optionArray, color = "black", wait = 1, textSpeed = 0.04) {
+		this.state.speaking = true
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
 		game.newEntity("textbox", textbox)
 		for(let c of string) {
@@ -93,6 +95,7 @@ class Entity {
 					await sleep(textSpeed)
 			}
 		}
+		this.state.speaking = false
 		await sleep(wait)
 		textbox.delete()
 
@@ -101,10 +104,7 @@ class Entity {
 		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black")
 		game.newEntity("promptBackground", promptBackground) //Prepare choice box
 		for (let c of optionArray) {
-			promptBackground.text += "  "
-			promptBackground.text += c
-			promptBackground.text += "\n"
-			promptBackground.text += "\n"
+			promptBackground.text += ` ${c}\n\n` // it works like this just trust me
 		}
 		var selector = new Entity(1396, 837, newImage("../../assets/crabClaw.png"))
 		game.newEntity("clawSelector", selector) //Create selector
@@ -130,10 +130,8 @@ class Entity {
 				}
 			}
 		}
-
-
-
 	}
+
 	update() {
 
 	}
