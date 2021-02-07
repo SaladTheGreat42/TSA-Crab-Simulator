@@ -4,11 +4,13 @@ class Crab extends Character {
 	constructor(x, y, imageBank, images, color) {
 		super(x, y, imageBank, images, color)
 		this.animation = {
-			clacking: false
+			clacking: false,
+			legsRaised: false
 		}
 	}
 
 	update() {
+		super.update()
 		if(!(game.frameCount % 15)) {
 			if(this.state.speaking) {
 				if(this.animation.clacking) {
@@ -20,6 +22,21 @@ class Crab extends Character {
 				}
 			} else {
 				this.animation.clacking = false
+				this.images["arms"].image = this.imageBank.arms
+			}
+		}
+		if(!(game.frameCount % 10)) {
+			if(this.state.moving[2] != -1) {
+				if(this.animation.legsRaised) {
+					this.animation.legsRaised = false
+					this.images["legs"].image = this.imageBank.legs_1
+				} else {
+					this.animation.legsRaised = true
+					this.images["legs"].image = this.imageBank.legs
+				}
+			} else {
+				this.animation.legsRaised = false
+				this.images["legs"].image = this.imageBank.legs
 			}
 		}
 	}
@@ -29,28 +46,6 @@ class Crab extends Character {
 		this.images["eyes"].x = direction * 20
 	}
 
-	/*
-	changeState(newState) {
-		this.state = newState
-		this.images["eyes"].x = 0
-		this.images["arms"].image = newImage("./assets/crab/crab_arms.png")
-		switch(this.state) {
-			case 0:
-				break
-			case 1:
-				this.images["eyes"].x = 20
-				break
-			case 2:
-				this.images["eyes"].x = -20
-				break
-			case 3:
-				this.images["arms"].image = newImage("./assets/crab/crab_arms_1.png")
-				break
-			case 4:
-				break
-		}
-	}
-	*/
 }
 
 export { Crab }

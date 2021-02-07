@@ -8,4 +8,4 @@
 |1/28|Main Menu framework, choice code, textbox improved|4 hrs.|J.J, R.C|Live choice selection via WASD, automatic textbox cutoff|
 |1/31|Textbox improved, animations added|1 hr. 30 mins.|R.C|Automatically splits long speech into multiple textboxes, Crab instances click when talking under rudimentary animation system|
 |2/5|Basic choices|2 hrs.|J.J|2 option choices work|
-|2/6|Fixed short string textboxes|30 mins.|R.C.|Issue where short strings of spoken text weren't being displayed|
+|2/6|Fixed textboxes, fixed speaking, added move|1 hr. 30 mins.|R.C.|Issue where short strings of spoken text weren't being displayed, bug where speaking colors were off, can now move entities|

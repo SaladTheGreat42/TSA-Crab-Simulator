@@ -15,13 +15,27 @@ async function onload() {
 			arms: "./assets/crab/crab_arms.png",
 			eyes: "./assets/crab/crab_eyes.png",
 			legs: "./assets/crab/crab_legs.png",
-			arms_1: "./assets/crab/crab_arms_1.png"
+			arms_1: "./assets/crab/crab_arms_1.png",
+			legs_1: "./assets/crab/crab_legs_1.png"
 		}), ["body", "arms", "eyes", "legs"], "cyan"))
 
-		let choice = await gnome.prompt("Are you obama", ["Yes", "No"], "yellow")
+		await player.speak("whats good homie")
+
+		let choice = await gnome.prompt("Hey dude you want to move left or right?", ["Left", "Right"], "yellow")
+		if(choice) { // left
+			await player.move(player.x - 300, player.y, 1)
+		} else { // right
+			await player.move(player.x + 300, player.y, 1)
+		}
+
+		await sleep(1)
+
+		await player.speak("Dope.")
+
+		choice = await gnome.prompt("Are you obama", ["Yes", "No"], "yellow")
 		if (choice){
 			await player.speak("Yes.")
-			await gnome.speak("Wowowsds.") 
+			await gnome.speak("Wowowsds.")
 		} else {
 			await player.speak("No.")
 			await gnome.speak("Wwowo")

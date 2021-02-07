@@ -5,7 +5,8 @@ class Entity {
 		this.image = image
 		this.color = "black"
 		this.state = {
-			speaking: false
+			speaking: false,
+			moving: [0, 0, -1]
 		}
 		this.animation = {}
 	}
@@ -14,12 +15,18 @@ class Entity {
 		game.ctx.drawImage(this.image, this.x, this.y)
 	}
 
+	// time in seconds assuming 60 fps
+	async move(x, y, time) {
+		let endTime = Math.floor(game.frameCount + (60 * time))
+		this.state.moving = [(x - this.x) / endTime, (y - this.y) / endTime, endTime]
+		await sleep(time)
+		return
+	}
 
 	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
 		this.state.speaking = true
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
 
-		// TODO : Split long text into multiple Textboxes
 		string = string.split(" ")
 		let textboxArray = [[""]] // 2D array inf. x 3 containing lines within textboxes
 		let t = 0
@@ -63,13 +70,14 @@ class Entity {
 				}
 				textbox.text += "\n"
 			}
-			textbox.state = 1 // adds little continue button in corner of textbox
+			textbox.state.done = true // adds little continue button in corner of textbox
 			this.state.speaking = false
 			await inputPromise()
 			this.state.speaking = true
-			textbox.state = 0
+			textbox.state.done = false
 			textbox.text = ""
 		}
+		this.state.speaking = false
 		textbox.delete()
 		await sleep(wait)
 	}
@@ -133,7 +141,16 @@ class Entity {
 	}
 
 	update() {
-
+		if(typeof this.state.moving == "undefined") {
+			console.log(this)
+		}
+		//console.log(this.state, this.state.moving, this.state.moving[2])
+		if(this.state.moving[2] >= game.frameCount) {
+			this.x += this.state.moving[0]
+			this.y += this.state.moving[1]
+		} else {
+			this.state.moving[2] = -1
+		}
 	}
 
 	delete() {
@@ -151,20 +168,19 @@ class Textbox extends Entity {
 		this.image = image
 		this.text = text
 		this.color = color
-		this.state = 0
+		this.state.done = false
 	}
 
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
 		game.ctx.fillStyle = colorBank[this.color]
-		// this.ctx.font = "16px Monaco"
-		game.ctx.font = "46px Lucida Console" // TODO figure out a good font
+		game.ctx.font = "46px Lucida Console"
 		let lines = this.text.split("\n")
 		for(let line in lines) {
 			game.ctx.fillText(lines[line], this.x+40, this.y+80 + (line * 58))
 		}
 		// if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
-		if(this.state == 1) game.ctx.fillRect(this.x + 1190, this.y + 213, 20, 20)
+		if(this.state.done) game.ctx.fillRect(this.x + 1190, this.y + 213, 20, 20)
 	}
 
 }
@@ -193,37 +209,6 @@ class Character extends Entity {
 
 	curveOffset(value, seed) {
 		return value + (Math.sin((game.frameCount - (seed * 12)) / 40) * 10)
-	}
-
-
-	async speak(string, color = "black", wait = 1, textSpeed = 0.04) {
-		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-		game.newEntity("textbox", textbox)
-		for(let c of string) {
-			textbox.text += c
-			switch(c) {
-				case ".":
-				case "!":
-				case "?":
-				case ";":
-					await sleep(.5) // full stop sleep
-					break
-				case ",":
-				case ":":
-					await sleep(.25) // half stop sleep
-					break
-				default:
-					await sleep(textSpeed)
-			}
-		}
-		textbox.state = 1
-		await new Promise((resolve, reject) => {
-			document.addEventListener("keypress", e => {
-				if(e.key == "Enter") resolve()
-			})
-		})
-		textbox.delete()
-		await sleep(wait)
 	}
 
 }
