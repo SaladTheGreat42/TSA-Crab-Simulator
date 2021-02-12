@@ -10,6 +10,9 @@ async function onload() {
 	const actOneQueue = ["../days/debugDay.js"]
 
 	await game.fadeOut()
+	delete game.entities["background"]
+	delete game.entities["waves"]
+	delete game.entities["selector"]
 	await game.titleText("Act 1 - Ex Nihilo", 3)
 	// Act 2 - Exigence?
 	// Act 3 - Finalis?
@@ -30,9 +33,9 @@ async function onload() {
 
 async function menu() {
 
-	game.newEntity("background", new Entity(0, 0, newImage("./assets/titleScreen/background.png")))
+	let background = game.newEntity("background", new Entity(0, 0, newImage("./assets/titleScreen/background.png")))
 
-	game.newEntity("waves", new TitleScreenWaves(0, 0, newImages({
+	let waves = game.newEntity("waves", new TitleScreenWaves(0, 0, newImages({
 		"wave_1": "./assets/titleScreen/waves_1.png",
 		"wave_2": "./assets/titleScreen/waves_2.png",
 		"wave_3": "./assets/titleScreen/waves_3.png"

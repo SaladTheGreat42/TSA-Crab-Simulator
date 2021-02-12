@@ -9,10 +9,11 @@ class Entity {
 			moving: [0, 0, -1]
 		}
 		this.animation = {}
+		this.scale = 1
 	}
 
 	draw() {
-		game.ctx.drawImage(this.image, this.x, this.y)
+		game.ctx.drawImage(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale)
 	}
 
 	// time in seconds assuming 60 fps
@@ -199,7 +200,8 @@ class Character extends Entity {
 	draw() {
 		let i = 0
 		for(let image in this.images) {
-			game.ctx.drawImage(this.images[image].image, this.curveOffset(this.x + this.images[image].x, i), this.curveOffset(this.y + this.images[image].y, i - 1))
+			// game.ctx.drawImage(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale)
+			game.ctx.drawImage(this.images[image].image, this.curveOffset(this.x + this.images[image].x, i), this.curveOffset(this.y + this.images[image].y, i - 1), this.images[image].image.width * this.scale, this.images[image].image.height * this.scale)
 			i++
 		}
 	}
