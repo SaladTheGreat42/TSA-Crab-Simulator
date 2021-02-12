@@ -7,12 +7,10 @@ async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
 	let option = await menu()
-	const actOneQueue = ["../days/debugDay.js"]
+	const actOneQueue = ["./days/oldMan.js", "./days/debugDay.js"]
 
 	await game.fadeOut()
-	delete game.entities["background"]
-	delete game.entities["waves"]
-	delete game.entities["selector"]
+	game.clearEntities()
 	await game.titleText("Act 1 - Ex Nihilo", 3)
 	// Act 2 - Exigence?
 	// Act 3 - Finalis?
@@ -21,10 +19,11 @@ async function onload() {
 	for(let day of actOneQueue) {
 		game.day++
 		await game.titleText(`Day ${game.day}`, 3)
-		day = await import(actOneQueue)
+		day = await import(day)
 		// put await game.fadeIn() at the beginning of every day
 		await day.execute()
 		// put await game.fadeOut() at the end of every day
+		game.clearEntities()
 	}
 
 	alert("yay you made it past act 1! I'm proud of you :)")

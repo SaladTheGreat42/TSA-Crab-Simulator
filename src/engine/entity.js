@@ -18,8 +18,7 @@ class Entity {
 
 	// time in seconds assuming 60 fps
 	async move(x, y, time) {
-		let endTime = Math.floor(game.frameCount + (60 * time))
-		this.state.moving = [(x - this.x) / endTime, (y - this.y) / endTime, endTime]
+		this.state.moving = [(x - this.x) / (60 * time), (y - this.y) / (60 * time), Math.floor(game.frameCount + (60 * time))]
 		await sleep(time)
 		return
 	}
@@ -83,7 +82,7 @@ class Entity {
 		await sleep(wait)
 	}
 
-	async prompt(string, optionArray, color = "black", wait = 1, textSpeed = 0.04) {
+	async prompt(string, optionArray, color = this.color || "black", wait = 1, textSpeed = 0.04) {
 		this.state.speaking = true
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
 		game.newEntity("textbox", textbox)
@@ -105,7 +104,7 @@ class Entity {
 			}
 		}
 		this.state.speaking = false
-		await sleep(wait)
+		await sleep(0.5)
 		textbox.delete()
 
 		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
@@ -120,7 +119,9 @@ class Entity {
 
 		var toggle = true; //Prep choice code
 
-		while(true) { // Choice code, wtf is .includes
+		// Choice code, wtf is .includes
+		// mb, .includes returns true/false depending if the argument is present in the array, so it's just a 1 line solution to what you were doing before with branched programming
+		while(true) {
 			let input = await inputPromise()
 			if(input == "Enter") {
 				promptBox.delete()
@@ -234,7 +235,8 @@ const colorBank = {
 	purple: "#BA55D3",
 	cyan: "#008B8B",
 	white: "#FFFFFF",
-	black: "#000000"
+	black: "#000000",
+	gray: "#303030"
 }
 
 export { Entity, Character, Textbox }

@@ -95,6 +95,10 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 		delete this.entities[name]
 	}
 
+	clearEntities() {
+		this.entities = {}
+	}
+
 	async fadeOut() {
 		await this.blackScreen.fadeOut()
 		return

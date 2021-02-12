@@ -10,3 +10,4 @@
 |2/5|Basic choices|2 hrs.|J.J|2 option choices work|
 |2/6|Fixed textboxes, fixed speaking, added move|1 hr. 30 mins.|R.C.|Issue where short strings of spoken text weren't being displayed, bug where speaking colors were off, can now move entities|
 |2/11|Title text, day queue, title screen|4 hrs.|R.C.|Added fading to black function, titles can now be displayed, crux of day system implemented, added more permanent title screen|
+|2/12|Old Man Day|4 hrs. 30 mins.|R.C.|Added the first day|
