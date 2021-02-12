@@ -66,6 +66,7 @@ export async function execute() {
 		kelp_2: "./assets/kelp/kelp_2.png",
 		kelp_3: "./assets/kelp/kelp_3.png"
 	}), ["kelp_1", "kelp_2", "kelp_3"]))
+	let stick = game.newEntity("stick", new Entity(586, 550, newImage("./assets/oldManDay/stick.png")))
 
 	background.image = newImage("./assets/oldManDay/background_2.png")
 	player.scale = 1
@@ -74,6 +75,7 @@ export async function execute() {
 	can.delete()
 
 	background.move(-1080, 0, 10)
+	stick.move(-494, 550, 10)
 	oldMan.move(1100, 469, 10)
 	oldManBlocker.move(1010, 653, 10)
 	kelp1.move(376, 30, 10)
