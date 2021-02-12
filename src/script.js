@@ -7,6 +7,10 @@ async function onload() {
 	game.loop() // start the game loop
 	let option = await menu()
 	if(option) { // game
+		await game.fadeOut()
+		await game.titleText("Act 1 - Your Life", 3)
+		await game.titleText("Day 1", 3)
+
 		game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/under_da_sea.png")))
 		let gnome = game.newEntity("gnome", new Entity(400, 200, newImage("./assets/gnome.png")))
 		gnome.color = "yellow"
@@ -19,7 +23,10 @@ async function onload() {
 			legs_1: "./assets/crab/crab_legs_1.png"
 		}), ["body", "arms", "eyes", "legs"], "cyan"))
 
-		await player.speak("whats good homie")
+		await game.fadeIn()
+		await sleep(.5)
+
+		await player.speak("fuck that took way too long to do")
 
 		let choice = await gnome.prompt("Hey dude you want to move left or right?", ["Left", "Right"], "yellow")
 		if(choice) { // left

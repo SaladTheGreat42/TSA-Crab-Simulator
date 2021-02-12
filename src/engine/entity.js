@@ -141,9 +141,6 @@ class Entity {
 	}
 
 	update() {
-		if(typeof this.state.moving == "undefined") {
-			console.log(this)
-		}
 		//console.log(this.state, this.state.moving, this.state.moving[2])
 		if(this.state.moving[2] >= game.frameCount) {
 			this.x += this.state.moving[0]

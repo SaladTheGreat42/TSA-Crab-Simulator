@@ -1,3 +1,5 @@
+import { BlackScreen } from "./entities/blackScreen.js"
+
 class Game {
 
 	constructor() {
@@ -9,6 +11,8 @@ class Game {
 		this.frameCount = 0
 		this.fpsInterval = 1000 / 60
 		this.fpsThen = 0
+		this.frameAwaitResolve = () => {}
+		this.blackScreen = new BlackScreen()
 	}
 
 	loop(now) { // puts update and draw functions into one function
@@ -16,9 +20,9 @@ class Game {
 		if(elapsed > this.fpsInterval) { // makes sure fps is locked at 60
 			this.update()
 			this.draw()
+			this.frameAwaitResolve()
 			this.fpsThen = now - (elapsed % this.fpsInterval)
 		}
-		//console.log(2)
 		window.requestAnimationFrame(this.loop.bind(this)) // calls next frame + fancy stuff so "this" works
 	}
 
@@ -27,6 +31,12 @@ class Game {
 			this.entities[name].update()
 		}
 		this.frameCount++
+	}
+
+	async frame() {
+		return new Promise((resolve, reject) => {
+			this.frameAwaitResolve = resolve
+		})
 	}
 
 /*
@@ -61,6 +71,9 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 		for(let name of Object.keys(this.entities)) { // loop through every entity and draw it to screen
 			this.entities[name].draw()
 		}
+
+		this.blackScreen.draw()
+
 	}
 
 	debugText(text) {
@@ -77,6 +90,42 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 
 	deleteEntity(name) {
 		delete this.entities[name]
+	}
+
+	async fadeOut() {
+		await this.blackScreen.fadeOut()
+		return
+	}
+
+	async fadeIn() {
+		await this.blackScreen.fadeIn()
+		return
+	}
+
+	async titleText(string, length) {
+		for(let i = 0; i < 30; i++) {
+			this.ctx.textAlign = "center"
+			this.ctx.font = "72px Lucida Console"
+			this.ctx.fillStyle = `rgba(255, 255, 255, ${i * 2 / 59})`
+			this.ctx.fillText(string, 960, 540)
+			await this.frame()
+		}
+		for(let i = 0; i < length * 60; i++) {
+			this.ctx.textAlign = "center"
+			this.ctx.font = "72px Lucida Console"
+			this.ctx.fillStyle = "white"
+			this.ctx.fillText(string, 960, 540)
+			await this.frame()
+		}
+		for(let i = 0; i < 30; i++) {
+			this.ctx.textAlign = "center"
+			this.ctx.font = "72px Lucida Console"
+			this.ctx.fillStyle = `rgba(255, 255, 255, ${1 - i * 2 / 59})`
+			this.ctx.fillText(string, 960, 540)
+			await this.frame()
+		}
+		this.ctx.textAlign = "left"
+		return
 	}
 
 }
