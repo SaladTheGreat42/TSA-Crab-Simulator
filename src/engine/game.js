@@ -63,11 +63,13 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 		// clear screen
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
+		/*
 		// test rectangle fills half of screen to test scaling
 		this.ctx.beginPath()
 		this.ctx.rect(0, 0, 960, 1080)
 		this.ctx.fillStyle = "#272838"
 		this.ctx.fill()
+		*/
 
 		for(let name of Object.keys(this.entities)) { // loop through every entity and draw it to screen
 			this.entities[name].draw()
