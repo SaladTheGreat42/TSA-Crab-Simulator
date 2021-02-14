@@ -6,7 +6,7 @@ class Entity {
 		this.color = "black"
 		this.state = {
 			speaking: false,
-			moving: [0, 0, -1]
+			moving: [0, 0, -1, false]
 		}
 		this.animation = {}
 		this.scale = 1
@@ -17,8 +17,8 @@ class Entity {
 	}
 
 	// time in seconds assuming 60 fps
-	async move(x, y, time) {
-		this.state.moving = [(x - this.x) / (60 * time), (y - this.y) / (60 * time), Math.floor(game.frameCount + (60 * time))]
+	async move(x, y, time, animate = true) {
+		this.state.moving = [(x - this.x) / (60 * time), (y - this.y) / (60 * time), Math.floor(game.frameCount + (60 * time)), animate]
 		await sleep(time)
 		return
 	}
@@ -149,6 +149,7 @@ class Entity {
 			this.y += this.state.moving[1]
 		} else {
 			this.state.moving[2] = -1
+			this.state.moving[3] = false
 		}
 	}
 
@@ -202,13 +203,13 @@ class Character extends Entity {
 		let i = 0
 		for(let image in this.images) {
 			// game.ctx.drawImage(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale)
-			game.ctx.drawImage(this.images[image].image, this.curveOffset(this.x + this.images[image].x, i), this.curveOffset(this.y + this.images[image].y, i - 1), this.images[image].image.width * this.scale, this.images[image].image.height * this.scale)
+			game.ctx.drawImage(this.images[image].image, this.x + this.images[image].x + this.curveOffset(i), this.y + this.images[image].y + this.curveOffset(i - 1), this.images[image].image.width * this.scale, this.images[image].image.height * this.scale)
 			i++
 		}
 	}
 
-	curveOffset(value, seed) {
-		return value + (Math.sin((game.frameCount - (seed * 12)) / 40) * 10)
+	curveOffset(seed) {
+		return Math.sin((game.frameCount - (seed * 12)) / 40) * 10 * this.scale
 	}
 
 }

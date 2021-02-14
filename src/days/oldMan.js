@@ -89,11 +89,15 @@ export async function execute() {
 	await sleep(7)
 
 	// jank move player without move animation
+	await player.move(435, 462, 3, false)
+
+	/*
 	let constant = 324 / 180
 	for(let i = 0; i < 3 * 60; i++) {
 		player.x -= constant
 		await game.frame()
 	}
+	*/
 
 	await sleep(2)
 	let answer = await oldMan.prompt("Ey, you, kid. You new here or somethin'?", ["Yes", "No"], "gray", 1, 0.06)
@@ -103,7 +107,7 @@ export async function execute() {
 		await player.speak("Oh, thank you!", 1)
 	} else {
 		await player.speak("Nah, I've been here a while now.")
-		await oldMan.speak("Hmm, well I don't recognize your face. I'm headed back to Shellfish City, if you'd care to join me.", 0.5, 0.06)
+		await oldMan.speak("Hmm, well I don't recall your face. I'm headed back to Shellfish City, if you'd care to join me.", 0.5, 0.06)
 		await player.speak("Sure.", 1)
 	}
 

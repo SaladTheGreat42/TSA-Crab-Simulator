@@ -26,7 +26,7 @@ class Crab extends Character {
 			}
 		}
 		if(!(game.frameCount % 10)) {
-			if(this.state.moving[2] != -1) {
+			if(this.state.moving[3]) {
 				if(this.animation.legsRaised) {
 					this.animation.legsRaised = false
 					this.images["legs"].image = this.imageBank.legs_1
