@@ -9,6 +9,6 @@
 |1/31|Textbox improved, animations added|1 hr. 30 mins.|R.C|Automatically splits long speech into multiple textboxes, Crab instances click when talking under rudimentary animation system|
 |2/5|Basic choices|2 hrs.|J.J|2 option choices work|
 |2/6|Fixed textboxes, fixed speaking, added move|1 hr. 30 mins.|R.C.|Issue where short strings of spoken text weren't being displayed, bug where speaking colors were off, can now move entities|
-|2/11|Title text, day queue, title screen|4 hrs.|R.C.|Added fading to black function, titles can now be displayed, crux of day system implemented, added more permanent title screen|
-|2/12|Old Man Day, script developed|6 hrs. 30 mins.|R.C.|Added the first day, wrote the script|
+|2/11|Title text, day queue, title screen, storyboards|4 hrs.|R.C., J.J.|Added fading to black function, titles can now be displayed, crux of day system implemented, added more permanent title screen, storyboards for Act 1|
+|2/12|Old Man Day, script developed, storyboards for Act 2 and 3|6 hrs. 30 mins.|R.C., J.J|Added the first day, wrote the script|
 |2/14|Peer Pressure Day, fixed move function|4 hrs. 30 mins.|R.C.|Added the second day, fixed some jank with moving|
