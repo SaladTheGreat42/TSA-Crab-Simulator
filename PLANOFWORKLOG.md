@@ -11,4 +11,4 @@
 |2/6|Fixed textboxes, fixed speaking, added move|1 hr. 30 mins.|R.C.|Issue where short strings of spoken text weren't being displayed, bug where speaking colors were off, can now move entities|
 |2/11|Title text, day queue, title screen|4 hrs.|R.C.|Added fading to black function, titles can now be displayed, crux of day system implemented, added more permanent title screen|
 |2/12|Old Man Day, script developed|6 hrs. 30 mins.|R.C.|Added the first day, wrote the script|
-|2/14|Fixed move function|30 mins.|R.C.|Fixed some jank with moving|
+|2/14|Peer Pressure Day, fixed move function|4 hrs. 30 mins.|R.C.|Added the second day, fixed some jank with moving|
