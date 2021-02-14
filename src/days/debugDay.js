@@ -20,9 +20,7 @@ export async function execute() {
 	await game.fadeIn() // fade from black
 	await sleep(.5) // wait a little before jumping into action
 
-	await player.speak("fuck that took way too long to do")
-
-	let choice = await gnome.prompt("Hey dude you want to move left or right?", ["Left", "Right"], "yellow")
+	let choice = await gnome.prompt("I just had a pretty cool thought. Do you want to move left or right?", ["Left", "Right"])
 	if(choice) { // left
 		await player.move(player.x - 300, player.y, 1)
 	} else { // right
@@ -33,7 +31,7 @@ export async function execute() {
 
 	await player.speak("Dope.")
 
-	choice = await gnome.prompt("Are you obama", ["Yes", "No"], "yellow")
+	choice = await gnome.prompt("Are you obama", ["Yes", "No"])
 	if (choice){
 		await player.speak("Yes.")
 		await gnome.speak("Wowowsds.")

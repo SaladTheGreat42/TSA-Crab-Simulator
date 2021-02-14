@@ -1,6 +1,9 @@
 class BlackScreen {
 	constructor(state) {
+		this.x = 0
+		this.y = 0
 		this.alpha = 0
+		this.image
 	}
 
 	async fadeOut() {
@@ -22,6 +25,10 @@ class BlackScreen {
 	draw() {
 		game.ctx.fillStyle = `rgba(0, 0, 0, ${this.alpha})`
 		game.ctx.fillRect(0, 0, 1920, 1080)
+	}
+
+	update() {
+		
 	}
 
 }

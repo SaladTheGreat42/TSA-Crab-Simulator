@@ -23,10 +23,7 @@ class Entity {
 		return
 	}
 
-	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black") {
-		this.state.speaking = true
-		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-
+	generateTextboxArray(string) {
 		string = string.split(" ")
 		let textboxArray = [[""]] // 2D array inf. x 3 containing lines within textboxes
 		let t = 0
@@ -46,6 +43,14 @@ class Entity {
 			}
 		}
 		if(textboxArray[textboxArray.length - 1][0] == "") textboxArray.pop() // if the last textbox is empty, delete
+		return textboxArray
+	}
+
+	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black", fromPrompt = false) {
+		this.state.speaking = true
+		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
+
+		let textboxArray = this.generateTextboxArray(string)
 
 		game.newEntity("textbox", textbox)
 
@@ -72,41 +77,31 @@ class Entity {
 			}
 			textbox.state.done = true // adds little continue button in corner of textbox
 			this.state.speaking = false
-			await inputPromise()
+			if(!fromPrompt) {
+				await inputPromise()
+				textbox.text = ""
+			}
 			this.state.speaking = true
 			textbox.state.done = false
-			textbox.text = ""
 		}
 		this.state.speaking = false
-		textbox.delete()
-		await sleep(wait)
+		if(fromPrompt) {
+			await sleep(0.5)
+			textbox.delete()
+		} else {
+			textbox.delete()
+			await sleep(wait)
+		}
 	}
 
-	async prompt(string, optionArray, color = this.color || "black", wait = 1, textSpeed = 0.04) {
-		this.state.speaking = true
-		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
-		game.newEntity("textbox", textbox)
-		for(let c of string) {
-			textbox.text += c
-			switch(c) {
-				case ".":
-				case "!":
-				case "?":
-				case ";":
-					await sleep(.5) // full stop sleep
-					break
-				case ",":
-				case ":":
-					await sleep(.25) // half stop sleep
-					break
-				default:
-					await sleep(textSpeed)
-			}
+	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black") {
+		// modified Entity.speak to remove this duplicate code
+		await this.speak(string, wait, textSpeed, color, true)
+		let textboxArray = this.generateTextboxArray(string)
+		string = ""
+		for(let line of textboxArray[textboxArray.length - 1]) {
+			string += line + "\n"
 		}
-		this.state.speaking = false
-		await sleep(0.5)
-		textbox.delete()
-
 		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
 		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
 		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black")

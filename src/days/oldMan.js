@@ -100,7 +100,7 @@ export async function execute() {
 	*/
 
 	await sleep(2)
-	let answer = await oldMan.prompt("Ey, you, kid. You new here or somethin'?", ["Yes", "No"], "gray", 1, 0.06)
+	let answer = await oldMan.prompt("Ey, you, kid. You new here or somethin'?", ["Yes", "No"], 1, 0.06)
 	if(answer) {
 		await player.speak("Uh yeah, actually. Could you show me around?")
 		await oldMan.speak("Shellfish City is nearby. I could go for a walk.", 0.5, 0.06)

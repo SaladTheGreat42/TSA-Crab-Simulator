@@ -3,22 +3,24 @@ import { Entity, Character, Textbox } from "./engine/entity.js"
 import { Crab } from "./engine/characters/crab.js"
 import { TitleScreenWaves, TitleScreenController } from "./engine/characters/titleScreen.js"
 
+// debug makes it so you don't have to sit through 6 seconds of title text before starting, and it uses a different queue than normal
+const debug = true
+
 async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
 	let option = await menu()
-	const actOneQueue = ["./days/oldMan.js", "./days/debugDay.js"]
-
+	const actOneQueue = debug ? ["./days/peerPressure.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/debugDay.js"]
 	await game.fadeOut()
 	game.clearEntities()
-	await game.titleText("Act 1 - Ex Nihilo", 3)
+	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
 	// Act 2 - Exigence?
 	// Act 3 - Finalis?
 
 	// act 1 days
 	for(let day of actOneQueue) {
 		game.day++
-		await game.titleText(`Day ${game.day}`, 3)
+		if(!debug) await game.titleText(`Day ${game.day}`, 3)
 		day = await import(day)
 		// put await game.fadeIn() at the beginning of every day
 		await day.execute()
