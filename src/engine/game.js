@@ -14,6 +14,7 @@ class Game {
 		this.frameAwaitResolve = () => {}
 		this.blackScreen = new BlackScreen()
 		this.day = 0
+		this.variables = {}
 	}
 
 	loop(now) { // puts update and draw functions into one function

@@ -108,6 +108,7 @@ export async function execute() {
 
 	let answer = await blueCrab.prompt("Hey you! You want some of this sand? The best, truly the best sand lemme tell ya, white and gray colors available.", ["I'll take some", "Nope"], 1, 0.03)
 	if(answer) { // yes
+		game.variables.sand = true
  		await player.speak("Well that does sound like a good deal...")
 		await blueCrab.speak("Ayy, aight, well here you go. That'll be five sea dollars.", 1)
 		// drops off bag
@@ -121,6 +122,7 @@ export async function execute() {
 		await player.speak("Hey wait, what does this do? What do I do now?", 1)
 		await background.speak("(You think you may have been scammed.)", 1)
 	} else { // no
+		game.variables.sand = false
 		await player.speak("What makes it so special? What's the deal?")
 		await blueCrab.speak("Trust me, everyone wants this sand. Best sand in the seven seas.")
 		await player.speak("Sounds to me like you're trying to get some unlucky sap to take your useless junk.")

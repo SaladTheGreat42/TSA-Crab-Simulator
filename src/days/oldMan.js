@@ -102,10 +102,12 @@ export async function execute() {
 	await sleep(2)
 	let answer = await oldMan.prompt("Ey, you, kid. You new here or somethin'?", ["Yes", "No"], 1, 0.06)
 	if(answer) {
+		game.variables.oldMan = true
 		await player.speak("Uh yeah, actually. Could you show me around?")
 		await oldMan.speak("Shellfish City is nearby. I could go for a walk.", 0.5, 0.06)
 		await player.speak("Oh, thank you!", 1)
 	} else {
+		game.variables.oldMan = false
 		await player.speak("Nah, I've been here a while now.")
 		await oldMan.speak("Hmm, well I don't recall your face. I'm headed back to Shellfish City, if you'd care to join me.", 0.5, 0.06)
 		await player.speak("Sure.", 1)
