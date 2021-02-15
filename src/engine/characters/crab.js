@@ -12,7 +12,7 @@ class Crab extends Character {
 	update() {
 		super.update()
 		if(!(game.frameCount % 15)) {
-			if(this.state.speaking) {
+			if(this.state.speaking || this.state.clacking) {
 				if(this.animation.clacking) {
 					this.animation.clacking = false
 					this.images["arms"].image = this.imageBank.arms_1
@@ -38,6 +38,11 @@ class Crab extends Character {
 				this.animation.legsRaised = false
 				this.images["legs"].image = this.imageBank.legs
 			}
+		}
+		if(this.state.breaking) {
+			this.images["arms"].x = Math.sin(game.frameCount / 20) * 13
+		} else {
+			this.images["arms"].x = 0
 		}
 	}
 

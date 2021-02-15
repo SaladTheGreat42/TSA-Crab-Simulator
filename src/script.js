@@ -10,7 +10,7 @@ async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
 	let option = await menu()
-	const actOneQueue = debug ? ["./days/peerPressure.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/debugDay.js"]
+	const actOneQueue = debug ? ["./days/theHike.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js", "./days/debugDay.js"]
 	await game.fadeOut()
 	game.clearEntities()
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
@@ -28,7 +28,7 @@ async function onload() {
 		game.clearEntities()
 	}
 
-	alert("yay you made it past act 1! I'm proud of you :)")
+	if(!debug) await game.titleText("Act 2 - Exigence", 3)
 }
 
 
