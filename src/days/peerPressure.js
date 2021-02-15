@@ -50,11 +50,13 @@ export async function execute() {
 	oldMan.y = 291
 	let stick = game.newEntity("stick", new Entity(1389, 782, newImage("./assets/oldManDay/stick.png")))
 	let buildingColor = game.newEntity("buildingColor", new Entity(2544, 69, newImage("./assets/peerPressureDay/buildings_color.png")))
-	let fish = game.newEntity("fish", new Character(2960, 326, newImages({
-		fin: "./assets/fish/fin.png",
-		body: "./assets/fish/body.png"
-	}), ["body", "fin"]))
-	fish.scale = .75
+	let fish = game.newEntity("fish", new Character(2935, 326, newImages({
+		fin: "./assets/fish/fish_fin.png",
+		body: "./assets/fish/fish_body.png",
+		tail: "./assets/fish/fish_tail.png",
+		fin_1: "./assets/fish_fish_fin_1.png"
+	}), ["tail", "body", "fin"]))
+	fish.scale = .4
 	let buildings = game.newEntity("buildings", new Entity(2544, 69, newImage("./assets/peerPressureDay/buildings_outline.png")))
 	let sandbag = game.newEntity("sandbag", new Holdable(0, -20, newImage("./assets/peerPressureDay/sandbag.png"), "blueCrab", "arms"))
 	let blueCrab = game.newEntity("blueCrab", new Crab(2769, 718, newImages({
