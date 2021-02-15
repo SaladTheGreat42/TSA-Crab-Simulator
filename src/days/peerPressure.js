@@ -1,6 +1,6 @@
 import { Crab } from "../engine/characters/crab.js"
 import { Entity, Character } from "../engine/entity.js"
-import { Sandbag } from "../engine/entities/sandbag.js"
+import { Holdable } from "../engine/entities/holdable.js"
 import { BlackScreen } from "../engine/entities/blackScreen.js"
 
 export async function execute() {
@@ -56,7 +56,7 @@ export async function execute() {
 	}), ["body", "fin"]))
 	fish.scale = .75
 	let buildings = game.newEntity("buildings", new Entity(2544, 69, newImage("./assets/peerPressureDay/buildings_outline.png")))
-	let sandbag = game.newEntity("sandbag", new Sandbag(newImage("./assets/peerPressureDay/sandbag.png")))
+	let sandbag = game.newEntity("sandbag", new Holdable(0, -20, newImage("./assets/peerPressureDay/sandbag.png"), "blueCrab", "arms"))
 	let blueCrab = game.newEntity("blueCrab", new Crab(2769, 718, newImages({
 		body: "./assets/blue_crab/blue_crab_body.png",
 		arms: "./assets/blue_crab/blue_crab_arms.png",
@@ -110,7 +110,7 @@ export async function execute() {
 	if(answer) { // yes
 		game.variables.sand = true
  		await player.speak("Well that does sound like a good deal...")
-		await blueCrab.speak("Ayy, aight, well here you go. That'll be five sea dollars.", 1)
+		await blueCrab.speak("Ayy, aight, well here you go. That'll be five sand dollars.", 1)
 		// drops off bag
 		sandbag.locked = false
 		await sandbag.move(sandbag.x, sandbag.y + 125, .2)
@@ -120,7 +120,7 @@ export async function execute() {
 		// starts leaving
 		await sleep(0.5)
 		await player.speak("Hey wait, what does this do? What do I do now?", 1)
-		await background.speak("(You think you may have been scammed.)", 1)
+		await background.speak("(You think you may have been scammed)", 1)
 	} else { // no
 		game.variables.sand = false
 		await player.speak("What makes it so special? What's the deal?")
@@ -133,7 +133,7 @@ export async function execute() {
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	await blackScreen.fadeOut()
 	await sleep(1)
-	await background.speak("(You decide to rent a motel room and sleep off that trek yesterday.)")
+	await background.speak("(You decide to rent a motel room and sleep off that trek yesterday)")
 	game.blackScreen.alpha = 1
 	await sleep(0.5)
 

@@ -30,6 +30,12 @@ class Entity {
 		let l = 0
 
 		for(let word of string) {
+			if(word == "\b") {
+				l = 0
+				t++
+				textboxArray[t + 1] = [""]
+				continue
+			}
 			if(textboxArray[t][l].length + word.length > 41) {
 				l++
 				if(l > 2) { // 2 because line index starts at 0
@@ -78,7 +84,7 @@ class Entity {
 			textbox.state.done = true // adds little continue button in corner of textbox
 			this.state.speaking = false
 			if(!fromPrompt) {
-				await inputPromise()
+				if(wait != 0) await inputPromise()
 				textbox.text = ""
 			}
 			this.state.speaking = true
@@ -225,14 +231,17 @@ function tokenize(string) {
 
 const colorBank = {
 	red: "#FF0000",
-	yellow: "#FFD700",
+	yellow: "#A88C00",
 	green: "#008000",
 	blue: "#1E90FF",
 	purple: "#BA55D3",
 	cyan: "#008B8B",
 	white: "#FFFFFF",
 	black: "#000000",
-	gray: "#303030"
+	gray: "#303030",
+	orange: "#FF8C00",
+	darkBlue: "#001CA8",
+	turquoise: "#40E0D0"
 }
 
 export { Entity, Character, Textbox }
