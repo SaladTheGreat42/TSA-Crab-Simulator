@@ -12,4 +12,4 @@
 |2/11|Title text, day queue, title screen, storyboards|4 hrs.|R.C., J.J.|Added fading to black function, titles can now be displayed, crux of day system implemented, added more permanent title screen, storyboards for Act 1|
 |2/12|Old Man Day, script developed, storyboards for Act 2 and 3|6 hrs. 30 mins.|R.C., J.J.|Added the first day, wrote the script|
 |2/14|Peer Pressure Day, fixed move function|4 hrs. 30 mins.|R.C.|Added the second day, fixed some jank with moving|
-|2/15|Strange Encounters Day, The Hike Day, Call To Action Day|6 hrs. 30 mins.|R.C., J.J.|Finished act 1 + an two extra days, did some sprite work|
+|2/15|Strange Encounters Day, The Hike Day, Call To Action Day|6 hrs. 30 mins.|R.C., J.J.|Finished act 1 + two extra days, did some sprite work|
