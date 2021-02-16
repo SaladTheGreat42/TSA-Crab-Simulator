@@ -10,7 +10,7 @@ async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
 	let option = await menu()
-	const actOneQueue = debug ? ["./days/theHike.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js", "./days/debugDay.js"]
+	const actOneQueue = debug ? ["./days/callToAction.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js", "./days/debugDay.js"]
 	await game.fadeOut()
 	game.clearEntities()
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
@@ -29,6 +29,25 @@ async function onload() {
 	}
 
 	if(!debug) await game.titleText("Act 2 - Exigence", 3)
+	game.day++
+	await game.titleText("Day 5", 3)
+	// comment out once this exists
+	//let day = await import("./days/meetup.js")
+	//await day.execute()
+	//game.clearEntities()
+	game.day++
+	await game.titleText("Day 6", 3)
+	day = await import("./days/callToAction.js")
+	await day.execute()
+	game.clearEntities()
+	game.day++
+	await game.titleText("Day 7", 3)
+	day = await import("./days/finale.js")
+	await day.execute()
+	game.clearEntities()
+
+	// end game here
+
 }
 
 
@@ -44,46 +63,6 @@ async function menu() {
 
 	let selector = game.newEntity("selector", new TitleScreenController())
 	await selector.start()
-
-	/*
-	while(true) {
-		let input = await inputPromise()
-		if(input == "Enter") {
-			if(selector.state) { // if first screen
-				if(selector.selection) { // if over start button
-					return // start game
-				} else {
-					selector.credits() // open credits
-				}
-			} else {
-				selector.closeCredits() // closes credits
-			}
-			if(selector.state && !selector.selection) selector.credits()
-		}
-		if(["a", "d", "ArrowRight", "ArrowLeft"].includes(input)) {
-			if(selector.state) selector.selection = selector.selection ? false : true
-		}
-	}
-	*/
-
-	/*
-	let toggle = true // true if on play button, false if on credits button
-	game.newEntity("menu", new Entity(0, 0, newImage("./assets/mainMenuTest.png")))
-	let selector = game.newEntity("selector", new Entity(570, 550, newImage("./assets/selector.png")))
-
-	while(true) {
-		let input = await inputPromise()
-		if(input == "Enter") return toggle
-		if(["w", "s", "ArrowUp", "ArrowDown"].includes(input)) {
-			toggle = toggle ? false : true
-			if(toggle) {
-				selector.y = 550
-			} else {
-				selector.y = 750
-			}
-		}
-	}
-	*/
 
 };
 
