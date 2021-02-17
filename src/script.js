@@ -10,7 +10,7 @@ async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
 	let option = await menu()
-	const actOneQueue = debug ? ["./days/meetup.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
+	const actOneQueue = debug ? ["./days/finale.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
 	await game.fadeOut()
 	game.clearEntities()
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
@@ -41,8 +41,8 @@ async function onload() {
 	game.clearEntities()
 	game.day++
 	await game.titleText("Day 7", 3)
-	//day = await import("./days/finale.js")
-	//await day.execute()
+	day = await import("./days/finale.js")
+	await day.execute()
 	game.clearEntities()
 
 	// end game here

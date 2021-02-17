@@ -149,7 +149,7 @@ export async function execute() {
 	await player.speak("Ah excuse me, do you remember me?")
 	pirate.lookDirection(-1)
 	await sleep(.5)
-	if(game.variables.pirateIntervene == true) {
+	if(game.variables.pirateIntervene) {
 		await pirate.speak("Why of course I remember ya, laddie!")
 		await player.speak("Well now I need your help. Are you willing to save the Bay with me?")
 		await pirate.speak("I'd do anything for a stellar scallywag like yourself. Weigh anchor and hoist the mizzen, we're going!", 1)

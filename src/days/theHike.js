@@ -55,7 +55,7 @@ export async function execute() {
 	}
 	await fish.speak("I'm getting lightheaded. Please keep trying.")
 	await player.speak("I'm telling you I can't! What do I do?")
-	await fish.speak("This white looking thing fell on me after a huge shadow passed overhead. Very loud. Many bubbles... I can't breathe anymore.")
+	await fish.speak("This white looking thing fell on me after a huge shadow passed overhead. It was so loud... I can't breathe anymore.")
 	await player.speak("I'm trying! I'm trying! Someone help!")
 	await fish.speak("Please. I still... I still have so much to do...", 2)
 
