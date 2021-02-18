@@ -16,3 +16,4 @@
 |2/15|Strange Encounters Day, The Hike Day, Call To Action Day|6 hrs. 30 mins.|R.C., J.J.|Finished act 1 + two extra days, did some sprite work|
 |2/16|Finale Day started|1 hr.|R.C.|Started work on the last day with some sprite work as well|
 |2/17|Finale Day finished|5 hr. 30 mins.|R.C.|Game is finished except for some bugs and sound|
+|2/18|Prompt edited|2 hr.|J.J.|Also fixed loading problem in day 1|
