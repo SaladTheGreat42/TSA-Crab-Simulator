@@ -15,7 +15,7 @@ export async function execute() {
 		legs_1: "./assets/crab/crab_legs_1.png"
 	}), ["body", "arms", "eyes", "legs"], "cyan"))
 	player.scale = .5
-	let can = game.newEntity("can", new Entity(113, 420, newImage("./assets/oldManDay/can.png")))
+	let can = await game.newEntity("can", new Entity(113, 420, newImage("./assets/oldManDay/can.png")))
 
 	await game.fadeIn() // fade from black
 	await sleep(2) // wait a little before jumping into action
