@@ -1,5 +1,6 @@
 |Date|Task|Time involved|Team member responsible (initials)|Comments|
 |---|-----|-------------|----------------------------------|--------|
+|1/14|Brainstorming|3 hrs.|R.C., J.J.|Created a master plan of what the game needs to include|
 |1/16|Basic game framework developed|3 hrs.|R.C|Game loop logic and FPS counter created|
 |1/17|Proper canvas scaling, entity creation|3 hrs.|R.C|Game canvas is locked in 16:9 ratio and contents scale relative to screen size, entities can now be created|
 |1/19|Character class rework|30 mins.|R.C|Better structure for animation|
@@ -13,3 +14,5 @@
 |2/12|Old Man Day, script developed, storyboards for Act 2 and 3|6 hrs. 30 mins.|R.C., J.J.|Added the first day, wrote the script|
 |2/14|Peer Pressure Day, fixed move function|4 hrs. 30 mins.|R.C.|Added the second day, fixed some jank with moving|
 |2/15|Strange Encounters Day, The Hike Day, Call To Action Day|6 hrs. 30 mins.|R.C., J.J.|Finished act 1 + two extra days, did some sprite work|
+|2/16|Finale Day started|1 hr.|R.C.|Started work on the last day with some sprite work as well|
+|2/17|Finale Day finished|5 hr. 30 mins.|R.C.|Game is finished except for some bugs and sound|

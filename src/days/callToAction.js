@@ -74,6 +74,7 @@ export async function execute() {
 	buildingColor.delete()
 	buildings.delete()
 	tire.delete()
+	blueCrab.lookDirection(0)
 	let orangeCrab = game.newEntity("orangeCrab", new Crab(901, 303, newImages({
 		body: "./assets/orangeCrab/orange_crab_body.png",
 		arms: "./assets/orangeCrab/orange_crab_arms.png",
@@ -118,6 +119,8 @@ export async function execute() {
 
 	await game.fadeOut()
 	background.image = newImage("./assets/strangeEncountersDay/background_2.png")
+	blueCrab.x = -900
+	blueCrab.y = -900
 	yellowCrab.delete()
 	orangeCrab.delete()
 	player.x = 137
@@ -164,7 +167,7 @@ export async function execute() {
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	await blackScreen.fadeOut()
 	await sleep(1)
-	await background.speak(`(${game.variables.peopleConvinced} people have joined your cause)`)
+	await background.speak(`(${game.variables.peopleConvinced} have joined your cause)`)
 	game.blackScreen.alpha = 1
 	await sleep(0.5)
 

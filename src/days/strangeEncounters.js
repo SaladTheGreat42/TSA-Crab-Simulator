@@ -55,7 +55,7 @@ export async function execute() {
 	} else { // confusion
 		await player.speak("Uh, that doesn't make sense. Bay crabs don't eat fresh meat, they're detrivores.", 1)
 		await yellowCrab.speak("It's an expression, nerd.")
-		await orangeCrab.speak("You know what? I'll let you off since I don't think you're around these parts. \b Shellfish City ain't the place it was five years ago. Watch yourself")
+		await orangeCrab.speak("You know what? I'll let you off since I don't think you're from around these parts. \b Shellfish City ain't the place it was five years ago. Watch yourself")
 		await background.speak("(You decide to hurry into the store)")
 	}
 
@@ -93,7 +93,7 @@ export async function execute() {
 
 	await pirate.speak("ARRR, WHAT DO YE MEAN ME COUPON'S EXPIRED!?")
 	await employee.speak("I'm sorry sir, but this coupon is", 0)
-	answer = await pirate.prompt("I NEED ME VITAMIN SEA SUPPLEY-MENTS!", ["Intervene", "Watch"])
+	answer = await pirate.prompt("I NEED ME VITAMIN SEA SUPPLEY-MENTS!", ["Help out", "Watch"])
 	if(answer) { // intervene
 		game.variables.pirateIntervene = true
 		await player.speak("Is it really that big of a deal? Let it slide just this once.")
@@ -106,9 +106,9 @@ export async function execute() {
 		await sandDollar.move(sandDollar.x, sandDollar.y + 150, .2)
 		await sleep(.2)
 		if(game.variables.sand) {
-			await player.speak("Wow, thanks!")
-		} else {
 			await player.speak("Wow, thanks! I was actually a bit strapped for cash.")
+		} else {
+			await player.speak("Wow, thanks!")
 		}
 		await pirate.speak("No problem, me matey.", 1)
 	} else { // watch

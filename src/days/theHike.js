@@ -43,14 +43,14 @@ export async function execute() {
 		await player.move(888, 536, 1)
 		await sleep(.2)
 		player.state.clacking = true
-		await sleep(2)
+		await sleep(3)
 		await player.speak("I've never seen this before. It's not working! I can't snip it.")
 	} else { // break apart
 		await player.move(1013, 553, 1)
 		await sleep(.2)
 		player.state.clacking = true
 		player.state.breaking = true
-		await sleep(2)
+		await sleep(3)
 		await player.speak("I've never seen this before. It's not working! I can't break it.")
 	}
 	await fish.speak("I'm getting lightheaded. Please keep trying.")
@@ -73,7 +73,7 @@ export async function execute() {
 
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	await blackScreen.fadeOut()
-	await sleep(3)
+	await sleep(2.5)
 	await background.speak("(You fled after the fish went unconcious)")
 	game.blackScreen.alpha = 1
 	await sleep(1)

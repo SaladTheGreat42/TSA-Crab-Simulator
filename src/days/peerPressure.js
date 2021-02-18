@@ -54,7 +54,7 @@ export async function execute() {
 		fin: "./assets/fish/fish_fin.png",
 		body: "./assets/fish/fish_body.png",
 		tail: "./assets/fish/fish_tail.png",
-		fin_1: "./assets/fish_fish_fin_1.png"
+		fin_1: "./assets/fish/fish_fin_1.png"
 	}), ["tail", "body", "fin"]))
 	fish.scale = .4
 	let buildings = game.newEntity("buildings", new Entity(2544, 69, newImage("./assets/peerPressureDay/buildings_outline.png")))
@@ -135,7 +135,12 @@ export async function execute() {
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	await blackScreen.fadeOut()
 	await sleep(1)
-	await background.speak("(You decide to rent a motel room and sleep off that trek yesterday)")
+	if(game.variables.sand) {
+		await background.speak("(With the money you have left, you rent a motel room and sleep off that trek yesterday)")
+	} else {
+		await background.speak("(You decide to rent a motel room and sleep off that trek yesterday)")
+	}
+
 	game.blackScreen.alpha = 1
 	await sleep(0.5)
 

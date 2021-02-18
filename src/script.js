@@ -2,20 +2,32 @@ import { Game } from "./engine/game.js"
 import { Entity, Character, Textbox } from "./engine/entity.js"
 import { Crab } from "./engine/characters/crab.js"
 import { TitleScreenWaves, TitleScreenController } from "./engine/characters/titleScreen.js"
+import { BlackScreen } from "./engine/entities/blackScreen.js"
 
 // debug makes it so you don't have to sit through 6 seconds of title text before starting, and it uses a different queue than normal
-const debug = true
+const debug = false
 
 async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
+	start()
+}
+
+async function start() {
 	let option = await menu()
+
 	const actOneQueue = debug ? ["./days/finale.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
-	await game.fadeOut()
+	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
+	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
+	speaker.color = "green"
+	await blackScreen.fadeOut()
+	await sleep(0.5)
+	await speaker.speak("This game is best played in fullscreen on Google Chrome.")
+	game.blackScreen.alpha = 1
+	await sleep(3)
 	game.clearEntities()
+
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
-	// Act 2 - Exigence?
-	// Act 3 - Finalis?
 
 	// act 1 days
 	for(let day of actOneQueue) {
@@ -47,6 +59,52 @@ async function onload() {
 
 	// end game here
 
+	await sleep(3)
+	let background = game.newEntity("background", new Entity(0, 0, newImage("./assets/end/background_1.png")))
+	background.color = "green"
+	let legislation = game.newEntity("legislation", new Entity(611, 0, newImage("./assets/end/legislation.png")))
+	legislation.move(611, -900, 30)
+	await game.fadeIn()
+	await sleep(0.5)
+	await background.speak("In the year 2028, Maryland lifted stringent Bay regulations in an effort to bring families back to water recreation.")
+	await game.fadeOut()
+
+	legislation.delete()
+	background.image = newImage("./assets/end/background_2.png")
+	await game.fadeIn()
+	await sleep(0.5)
+	await background.speak("While it succeeded in that regard, the quality of marine life and water suffered great losses.")
+	await game.fadeOut()
+
+	background.image = newImage("./assets/end/background_3.png")
+	await game.fadeIn()
+	await sleep(0.5)
+	await background.speak("Thanks to a team of researchers, it was discovered that the heavy flow of sediment into the Bay was causing abnormal stimuli responses in crabs, prompting an investigation into the water quality.")
+	await game.fadeOut()
+
+	background.image = newImage("./assets/end/background_4.png")
+	await game.fadeIn()
+	await sleep(0.5)
+	await background.speak("The Bay was brought from the brink of total ecological failure with new legislation in 2029.")
+	let blackout = game.newEntity("blackout", new BlackScreen())
+	await blackout.fadeOut()
+	await sleep(1)
+
+	// water splashing sound
+
+	await sleep(1)
+	let player = game.newEntity("player", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
+	player.color = "cyan"
+	await player.speak("That must be why I'm here... I did it... I did it...", 3)
+	await background.speak("Thanks for playing Crab Simulator!", 3, 0.1)
+
+	// ambient sound comes back
+
+	await sleep(1)
+	game.blackScreen.alpha = 1
+	game.clearEntities()
+	game.fadeIn()
+	start()
 }
 
 

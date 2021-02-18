@@ -33,9 +33,9 @@ export async function execute() {
   await player.speak("There! Hey! Hey, you met me a while ago!")
   let string = game.variables.oldMan ?  "I led you to this settlement out in the middle of the Bay." : "You're that strange fellow I didn't recognize a few days back."
   await oldMan.speak("Oh, me? Yes, I remember ya. " + string)
-  await player.speak("Something terrible happened. A fish I met was caught in some kind of force, it was white but I could still see through it, and it was suffocating him, and I couldn't get it loose with my claws and he wasn't going to make it and-")
+  await player.speak("Something terrible happened. A fish I met was caught in some kind of force, it was white but I could still see through it, and it was suffocating him, and I couldn't get it loose with my claws and he wasn't going to make it and-", .25)
   await oldMan.speak("Calm down, kid. There was nothin' you coulda done about it. That's the way it is in the Bay.", 2)
-  await sleep(2)
+  await sleep(1)
   await player.speak("But what was it?")
   await oldMan.speak("A handful of years ago debris started fallin' into these waters. At first we rejoiced, but this was no edible debris. Many perished. More continue to.")
   await player.speak("And nobody wants to do anything about it?")

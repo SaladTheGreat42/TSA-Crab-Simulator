@@ -241,7 +241,9 @@ const colorBank = {
 	gray: "#303030",
 	orange: "#FF8C00",
 	darkBlue: "#001CA8",
-	turquoise: "#40E0D0"
+	turquoise: "#40E0D0",
+	brown: "#8B4513",
+	leg: "#1C2840"
 }
 
 export { Entity, Character, Textbox }
