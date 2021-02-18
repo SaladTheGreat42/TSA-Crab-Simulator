@@ -100,7 +100,7 @@ class Entity {
 		}
 	}
 
-	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black") {
+	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black", font = "48px Lucida Console") {
 		// modified Entity.speak to remove this duplicate code
 		await this.speak(string, wait, textSpeed, color, true)
 		let textboxArray = this.generateTextboxArray(string)
@@ -110,10 +110,10 @@ class Entity {
 		}
 		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
 		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
-		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black")
+		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black", font)
 		game.newEntity("promptBackground", promptBackground) //Prepare choice box
 		for (let c of optionArray) {
-			promptBackground.text += ` ${c}\n\n` // it works like this just trust me
+			promptBackground.text += ` ${c}\n` // it works like this just trust me
 		}
 		var selector = new Entity(1396, 837, newImage("../../assets/crabClaw.png"))
 		game.newEntity("clawSelector", selector) //Create selector
@@ -162,7 +162,7 @@ class Entity {
 //Textbox coords : 344, 800
 //Textbox dimensions : 253, 1230
 class Textbox extends Entity {
-	constructor(x, y, image, text, color){
+	constructor(x, y, image, text, color, font = "46px Lucida Console"){
 		super(x, y)
 		this.x = x
 		this.y = y
@@ -170,12 +170,13 @@ class Textbox extends Entity {
 		this.text = text
 		this.color = color
 		this.state.done = false
+		this.font = font
 	}
 
 	draw() {
 		game.ctx.drawImage(this.image, this.x, this.y)
 		game.ctx.fillStyle = colorBank[this.color]
-		game.ctx.font = "46px Lucida Console"
+		game.ctx.font = this.font
 		let lines = this.text.split("\n")
 		for(let line in lines) {
 			game.ctx.fillText(lines[line], this.x+40, this.y+80 + (line * 58))

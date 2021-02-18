@@ -20,7 +20,7 @@ export async function execute() {
 	await game.fadeIn() // fade from black
 	await sleep(.5) // wait a little before jumping into action
 
-	let choice = await gnome.prompt("Testing testing 1 2 3. ", ["WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"]) // 32 characters
+	let choice = await gnome.prompt("Testing testing 1 2 3. ", [" Convince the\n  others", " Educate the others"]) // 32 characters
 	if(choice) { // left
 		await player.move(player.x - 300, player.y, 1)
 	} else { // right
