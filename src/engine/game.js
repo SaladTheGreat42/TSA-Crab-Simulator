@@ -17,6 +17,10 @@ class Game {
 		this.variables = {
 			peopleConvinced: 1 // old man will always think you're cool :sunglasses:
 		}
+		this.sounds = {
+			blip: new Audio("../assets/phoenixWrightBlip.wav")
+		}
+		this.sounds.blip.volume = 0.1
 	}
 
 	loop(now) { // puts update and draw functions into one function
@@ -136,6 +140,13 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 		}
 		this.ctx.textAlign = "left"
 		return
+	}
+
+	playAudio(audio) {
+		audio = game.sounds[audio]
+    audio.pause()
+    audio.currentTime = 0
+    audio.play()
 	}
 
 }

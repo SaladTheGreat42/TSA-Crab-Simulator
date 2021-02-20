@@ -54,6 +54,7 @@ class Entity {
 
 	async speak(string, wait = 1, textSpeed = 0.04, color = this.color || "black", fromPrompt = false) {
 		this.state.speaking = true
+		let playingSound = true
 		let textbox = new Textbox(344, 800, newImage("../../assets/textbox_background_test.png"), "", color)
 
 		let textboxArray = this.generateTextboxArray(string)
@@ -69,13 +70,22 @@ class Entity {
 						case "!":
 						case "?":
 						case ";":
+							game.playAudio("blip")
 							await sleep(.5) // full stop sleep
 							break
 						case ",":
 						case ":":
+							game.playAudio("blip")
 							await sleep(.25) // half stop sleep
 							break
 						default:
+							if(playingSound) {
+								game.playAudio("blip")
+								playingSound = false
+							} else {
+								playingSound = true
+							}
+						case " ":
 							await sleep(textSpeed)
 					}
 				}
