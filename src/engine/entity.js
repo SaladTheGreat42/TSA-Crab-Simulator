@@ -70,17 +70,17 @@ class Entity {
 						case "!":
 						case "?":
 						case ";":
-							//game.playAudio("blip")
+							game.playAudio("blip")
 							await sleep(.5) // full stop sleep
 							break
 						case ",":
 						case ":":
-							//game.playAudio("blip")
+							game.playAudio("blip")
 							await sleep(.25) // half stop sleep
 							break
 						default:
 							if(playingSound) {
-								//game.playAudio("blip")
+								game.playAudio("blip")
 								playingSound = false
 							} else {
 								playingSound = true
@@ -110,8 +110,11 @@ class Entity {
 		}
 	}
 
-	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black", font = "36px Lucida Console") {
+	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, multiLine = false, color = this.color || "black") {
 		// modified Entity.speak to remove this duplicate code
+		const font = multiLine ? "36px Lucida Console" : "46px Lucida Console"
+		const selectorY = multiLine ? 927 : 953
+		const concater = multiLine ? "\n" : "\n\n"
 		await this.speak(string, wait, textSpeed, color, true)
 		let textboxArray = this.generateTextboxArray(string)
 		string = ""
@@ -120,10 +123,10 @@ class Entity {
 		}
 		let promptBox = new Textbox(27, 800, newImage("../../assets/textbox_background_test.png"), string, color)
 		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
-		let promptBackground = new Textbox(1285, 800, newImage("../../assets/prompt_background_test.png"), "", "black", font, true)
+		let promptBackground = new Textbox(1285, 800, newImage("../../assets/prompt_background_test.png"), "", "black", font, multiLine ? 2 : 1)
 		game.newEntity("promptBackground", promptBackground) //Prepare choice box
 		for (let c of optionArray) {
-			promptBackground.text += ` ${c}\n` // it works like this just trust me
+			promptBackground.text += ` ${c}${concater}` // it works like this just trust me
 		}
 		var selector = new Entity(1297, 837, newImage("../../assets/crabClaw.png"))
 		game.newEntity("clawSelector", selector) //Create selector
@@ -147,7 +150,7 @@ class Entity {
 				if(toggle) {
 					selector.y = 837
 				} else {
-					selector.y = 927
+					selector.y = selectorY
 				}
 			}
 		}
@@ -181,8 +184,12 @@ class Textbox extends Entity {
 		this.color = color
 		this.state.done = false
 		this.font = font
-		this.lineSize = fromPrompt ? 36 + 8 : 48 + 10
-		this.offsets = fromPrompt ? [44, 72] : [40, 80]
+		if(fromPrompt == 2) {
+			this.lineSize = 36 + 8
+		} else {
+			this.lineSize = 48 + 10
+		}
+		this.offsets = fromPrompt ? [50, 72] : [40, 80]
 	}
 
 	draw() {
