@@ -46,7 +46,7 @@ export async function execute() {
 	await player.speak("Can I help you?")
 	backCan2.delete()
 	await orangeCrab.speak("Look what we have here...", .2)
-	let answer = await yellowCrab.prompt("Fresh meat, heheh.", ["Step off\n", "That\n doesn't make sense"])
+	let answer = await yellowCrab.prompt("Fresh meat, heheh.", ["Step off\n", "That doesn't make\n sense"], 1, 0.04, true)
 	if(answer) { // off step
 		await player.speak("Hey, step off.")
 		await orangeCrab.speak("Ok man.")

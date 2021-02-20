@@ -47,8 +47,8 @@ export async function execute() {
 	await sleep(.5)
 	await blueCrab.speak("Huh? Wanna tussle?")
 	await player.speak("No, do you know what happened to Shellfish City five years ago?")
-	let answer = await blueCrab.prompt("No? Why does that matter?", ["It could save lives", "We can fix it"])
-	if(answer) {
+	let answer = await blueCrab.prompt("No? Why does that matter?", ["We can fix it\n", "It could save\n lives"], 0.5, 0.04, true)
+	if(!answer) {
 		await player.speak("If we know what caused it, we can prevent the deaths of countless.")
 	} else {
 		await player.speak("If we know what caused it, we can do our best and fix it.")

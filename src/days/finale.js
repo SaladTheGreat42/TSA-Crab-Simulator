@@ -136,7 +136,7 @@ export async function execute() {
 		arms_1: "./assets/brownCrab/brown_crab_arms_1.png"
 	}), ["body", "arms", "eyes", "legs"], "brown"))
 
-	//await game.titleText("Act 3 - Finalis", 3)
+	await game.titleText("Act 3 - Finalis", 3)
 
 	await game.fadeIn()
 
@@ -195,14 +195,14 @@ export async function execute() {
 		await sleep(2)
 		await legs.speak("Hey, what's that crab doing?")
 	}
-	let answer3 = await player.prompt("It's working!", ["Scuttle back and forth", "Scuttle in circles"])
+	let answer3 = await player.prompt("It's working!", ["Scuttle in circles\n", "Scuttle back and\n forth"], 1, 0.04, true)
 	player.state.clacking = false
 	if(answer2) {
 		await player.move(716, 566, 2)
 	} else {
 		await player.move(716, 566, 1)
 	}
-	movement(answer3, player)
+	movement(!answer3, player)
 	await sleep(3)
 	answer3 = await legs.prompt("Look at what it's doing now. Should we be writing this down?", ["Snap at ankles", "Unlatch buckets"])
 	moving = false

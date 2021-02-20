@@ -16,7 +16,7 @@ async function onload() {
 async function start() {
 	let option = await menu()
 
-	const actOneQueue = debug ? ["./days/debugDay.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
+	const actOneQueue = debug ? ["./days/finale.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
 	speaker.color = "green"

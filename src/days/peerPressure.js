@@ -108,7 +108,7 @@ export async function execute() {
 	// blue crab walks into street
 	await blueCrab.move(825, 505, 1.5)
 
-	let answer = await blueCrab.prompt("Hey you! You want some of this sand? The best, truly the best sand lemme tell ya, white and gray colors available.", ["I'll take\n some", "Nope"], 1, 0.03)
+	let answer = await blueCrab.prompt("Hey you! You want some of this sand? The best, truly the best sand lemme tell ya, white and gray colors available.", ["I'll take some", "Nope"], 1, 0.03)
 	if(answer) { // yes
 		game.variables.sand = true
  		await player.speak("Well that does sound like a good deal...")
