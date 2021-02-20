@@ -70,17 +70,17 @@ class Entity {
 						case "!":
 						case "?":
 						case ";":
-							game.playAudio("blip")
+							//game.playAudio("blip")
 							await sleep(.5) // full stop sleep
 							break
 						case ",":
 						case ":":
-							game.playAudio("blip")
+							//game.playAudio("blip")
 							await sleep(.25) // half stop sleep
 							break
 						default:
 							if(playingSound) {
-								game.playAudio("blip")
+								//game.playAudio("blip")
 								playingSound = false
 							} else {
 								playingSound = true
@@ -110,7 +110,7 @@ class Entity {
 		}
 	}
 
-	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black", font = "48px Lucida Console") {
+	async prompt(string, optionArray, wait = 1, textSpeed = 0.04, color = this.color || "black", font = "36px Lucida Console") {
 		// modified Entity.speak to remove this duplicate code
 		await this.speak(string, wait, textSpeed, color, true)
 		let textboxArray = this.generateTextboxArray(string)
@@ -118,14 +118,14 @@ class Entity {
 		for(let line of textboxArray[textboxArray.length - 1]) {
 			string += line + "\n"
 		}
-		let promptBox = new Textbox(144, 800, newImage("../../assets/textbox_background_test.png"), string, color)
+		let promptBox = new Textbox(27, 800, newImage("../../assets/textbox_background_test.png"), string, color)
 		game.newEntity("promptBox", promptBox) // Remove old texbox and create new one slightly displaced
-		let promptBackground = new Textbox(1384, 800, newImage("../../assets/prompt_background_test.png"), "", "black", font)
+		let promptBackground = new Textbox(1285, 800, newImage("../../assets/prompt_background_test.png"), "", "black", font, true)
 		game.newEntity("promptBackground", promptBackground) //Prepare choice box
 		for (let c of optionArray) {
 			promptBackground.text += ` ${c}\n` // it works like this just trust me
 		}
-		var selector = new Entity(1396, 837, newImage("../../assets/crabClaw.png"))
+		var selector = new Entity(1297, 837, newImage("../../assets/crabClaw.png"))
 		game.newEntity("clawSelector", selector) //Create selector
 
 		var toggle = true; //Prep choice code
@@ -147,7 +147,7 @@ class Entity {
 				if(toggle) {
 					selector.y = 837
 				} else {
-					selector.y = 957
+					selector.y = 927
 				}
 			}
 		}
@@ -172,7 +172,7 @@ class Entity {
 //Textbox coords : 344, 800
 //Textbox dimensions : 253, 1230
 class Textbox extends Entity {
-	constructor(x, y, image, text, color, font = "46px Lucida Console"){
+	constructor(x, y, image, text, color, font = "46px Lucida Console", fromPrompt = false) {
 		super(x, y)
 		this.x = x
 		this.y = y
@@ -181,6 +181,8 @@ class Textbox extends Entity {
 		this.color = color
 		this.state.done = false
 		this.font = font
+		this.lineSize = fromPrompt ? 36 + 8 : 48 + 10
+		this.offsets = fromPrompt ? [44, 72] : [40, 80]
 	}
 
 	draw() {
@@ -189,7 +191,7 @@ class Textbox extends Entity {
 		game.ctx.font = this.font
 		let lines = this.text.split("\n")
 		for(let line in lines) {
-			game.ctx.fillText(lines[line], this.x+40, this.y+80 + (line * 58))
+			game.ctx.fillText(lines[line], this.x+this.offsets[0], this.y+this.offsets[1] + (line * this.lineSize))
 		}
 		// if(this.state == 1) game.ctx.fillRect(this.x + 1230 - 20 - 20, this.y + 253 - 20 - 20, 20, 20)
 		if(this.state.done) game.ctx.fillRect(this.x + 1190, this.y + 213, 20, 20)

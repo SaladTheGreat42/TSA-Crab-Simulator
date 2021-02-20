@@ -5,8 +5,8 @@ import { Crab } from "../engine/characters/crab.js"
 export async function execute() {
 
 	// initialize all characters, backgrounds, etc. here
-	game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/under_da_sea.png")))
-	let gnome = game.newEntity("gnome", new Entity(400, 200, newImage("./assets/gnome.png")))
+	game.newEntity("testbackground", new Entity(0, 0, newImage("./assets/legacy/under_da_sea.png")))
+	let gnome = game.newEntity("gnome", new Entity(400, 200, newImage("./assets/legacy/gnome.png")))
 	gnome.color = "yellow"
 	let player = game.newEntity("playerTest", new Crab(1000, 300, newImages({
 		body: "./assets/crab/crab_body.png",
@@ -20,7 +20,7 @@ export async function execute() {
 	await game.fadeIn() // fade from black
 	await sleep(.5) // wait a little before jumping into action
 
-	let choice = await gnome.prompt("Testing testing 1 2 3. ", [" Convince the\n  others", " Educate the others"]) // 32 characters
+	let choice = await gnome.prompt("Testing testing 1 2 3.", ["Convince the\n others", "Educate the\n others"]) // 32 characters
 	if(choice) { // left
 		await player.move(player.x - 300, player.y, 1)
 	} else { // right

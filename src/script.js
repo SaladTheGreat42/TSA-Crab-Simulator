@@ -5,7 +5,7 @@ import { TitleScreenWaves, TitleScreenController } from "./engine/characters/tit
 import { BlackScreen } from "./engine/entities/blackScreen.js"
 
 // debug makes it so you don't have to sit through 6 seconds of title text before starting, and it uses a different queue than normal
-const debug = false
+const debug = true
 
 async function onload() {
 	window.game = new Game()
@@ -16,15 +16,17 @@ async function onload() {
 async function start() {
 	let option = await menu()
 
-	const actOneQueue = debug ? ["./days/meetup.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
+	const actOneQueue = debug ? ["./days/debugDay.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
 	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
 	speaker.color = "green"
 	await blackScreen.fadeOut()
-	await sleep(0.5)
-	await speaker.speak("This game is best played in fullscreen on Google Chrome.")
-	game.blackScreen.alpha = 1
-	await sleep(3)
+	if(!debug) {
+		await sleep(0.5)
+		await speaker.speak("This game is best played in fullscreen on Google Chrome.")
+		game.blackScreen.alpha = 1
+		await sleep(3)
+	}
 	game.clearEntities()
 
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
