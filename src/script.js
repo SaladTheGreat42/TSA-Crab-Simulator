@@ -14,22 +14,30 @@ async function onload() {
 }
 
 async function start() {
+	await sleep(1)
+	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
+	speaker.color = "green"
+	await speaker.speak("This game is best played in fullscreen on Google Chrome.")
+	await sleep(0.5)
+	game.playAudioFade("waves")
+	await sleep(0.5)
+	game.fadeIn()
 	let option = await menu()
 
 	const actOneQueue = debug ? ["./days/finale.js"] : ["./days/oldMan.js", "./days/peerPressure.js", "./days/strangeEncounters.js", "./days/theHike.js"]
 	let blackScreen = game.newEntity("blackScreen", new BlackScreen())
-	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
-	speaker.color = "green"
 	await blackScreen.fadeOut()
-	if(!debug) {
-		await sleep(0.5)
-		await speaker.speak("This game is best played in fullscreen on Google Chrome.")
-		game.blackScreen.alpha = 1
-		await sleep(3)
-	}
+	game.blackScreen.alpha = 1
+	await sleep(1)
 	game.clearEntities()
 
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
+
+	game.playAudio("waterSplash")
+	game.stopAudioFade("waves")
+	game.playAudioFade("underwater")
+
+	await sleep(1)
 
 	// act 1 days
 	for(let day of actOneQueue) {
