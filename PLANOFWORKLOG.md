@@ -17,4 +17,4 @@
 |2/16|Finale Day started|1 hr.|R.C.|Started work on the last day with some sprite work as well|
 |2/17|Finale Day finished|5 hr. 30 mins.|R.C.|Game is finished except for some bugs and sound|
 |2/18|Prompt edited|2 hr.|J.J.|Also fixed loading problem in day 1|
-|2/20|Reworked all prompts to fit new function|2 hr. 15 min.|R.C.|Prompt calls needed to be edited to avoid bugs|
+|2/20|Reworked all prompts to fit new function, did all audio|6 hr. 15 min.|R.C.|Prompt calls needed to be edited to avoid bugs, put in all necessary sounds and sound effects|
