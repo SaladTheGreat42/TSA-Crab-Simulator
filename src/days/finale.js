@@ -72,6 +72,7 @@ export async function execute() {
 		rudder3: "./assets/boat/rudder_3.png"
 	})))
 
+	game.playAudio("boatEngine")
 	await game.fadeIn() // fade from black
 	await sleep(.5) // wait a little before jumping into action
 
@@ -91,9 +92,13 @@ export async function execute() {
 	await sleep(0.5)
 
 	await player.speak("It's getting louder. I think this is it.")
+
+	increaseEngineVolume()
 	await boat.move(boat.x + 1000, boat.y, 6)
 
 	game.blackScreen.alpha = 1
+	game.stopAudio("boatEngine")
+	game.stopAudio("underwater")
 
 	// set up for next screen
 
@@ -138,6 +143,13 @@ export async function execute() {
 
 	await game.titleText("Act 3 - Finalis", 3)
 
+	game.playAudio("boatEngine")
+	for(let i = 0; i < 30; i++) {
+		game.sounds.boatEngine.volume = i * 2 / 59
+		console.log(i * 2 / 59 / 10)
+		await game.frame1()
+	}
+
 	await game.fadeIn()
 
 	// part 2
@@ -167,6 +179,7 @@ export async function execute() {
 	}
 
 	await game.fadeOut()
+
 
 	//set up for final screen
 	background.image = newImage("./assets/finaleDay/background_3.png")
@@ -215,9 +228,11 @@ export async function execute() {
 		player.state.clacking = true
 	}
 	await sleep(1)
-	await legs.speak("Hey, help me get this guy back in the study pool. They're acting weirdly.", 2)
+	await legs.speak("Hey, help me get this guy back in the study pool. They're acting strange.", 2)
 
 	await game.fadeOut()
+	game.stopAudioFade("boatEngine")
+	await sleep(0.5)
 
 }
 
@@ -237,4 +252,12 @@ async function movement(answer2, player) {
 			await player.move(player.x - 80, player.y - 80, .4)
 		}
 	}
+}
+
+async function increaseEngineVolume() {
+	for(let i = 24; i < 240; i++) {
+		game.sounds.boatEngine.volume = i / 239
+		await game.frame1()
+	}
+
 }

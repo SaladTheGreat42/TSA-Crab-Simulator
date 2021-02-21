@@ -22,12 +22,17 @@ class Game {
 			blip: new Audio("../assets/audio/phoenixWrightBlip.wav"),
 			underwater: new Audio("./assets/audio/underwater.wav"),
 			waves: new Audio("./assets/audio/waves.wav"),
-			waterSplash: new Audio("./assets/audio/waterSplash.wav")
+			waterSplash: new Audio("./assets/audio/waterSplash.wav"),
+			boatEngine: new Audio("./assets/audio/boatEngine.wav"),
+			clack1: new Audio("./assets/audio/clack1.wav")
 		}
 		this.sounds.blip.volume = 0.1
 		this.sounds.underwater.volume = 0.5
 		this.setAudioLoop(this.sounds.waves)
 		this.setAudioLoop(this.sounds.underwater)
+		this.setAudioLoop(this.sounds.boatEngine)
+		this.sounds.boatEngine.volume = .1
+		this.sounds.clack1.volume = .5
 	}
 
 	loop(now) { // puts update and draw functions into one function
@@ -164,12 +169,15 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 	}
 
 	async playAudioFade(audio) {
-		this.playAudio(audio)
 		audio = game.sounds[audio]
+		audio.pause()
+		audio.currentTime = 0
+		audio.play()
 		for(let i = 0; i < 30; i++) {
 			audio.volume = i * 2 / 59
 			await this.frame()
 		}
+		return
 	}
 
 	stopAudio(audio) {
@@ -184,10 +192,11 @@ so (960, 540) is in the middle of the screen regardless of the actual size.
 			await game.frame1()
 		}
 		audio.pause()
+		return
 	}
 
 	setAudioLoop(audio) {
-		audio.addEventListener("timeupdate", waves => {
+		audio.addEventListener("timeupdate", () => {
 			if(audio.currentTime > audio.duration - .44) {
 				audio.currentTime = 0
 				audio.play()

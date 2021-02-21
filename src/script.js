@@ -10,15 +10,15 @@ const debug = true
 async function onload() {
 	window.game = new Game()
 	game.loop() // start the game loop
+	await sleep(1)
+	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
+	speaker.color = "green"
+	await speaker.speak("This game is best played in fullscreen on Google Chrome.")
 	start()
 }
 
 async function start() {
 	await sleep(1)
-	let speaker = game.newEntity("speaker", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
-	speaker.color = "green"
-	await speaker.speak("This game is best played in fullscreen on Google Chrome.")
-	await sleep(0.5)
 	game.playAudioFade("waves")
 	await sleep(0.5)
 	game.fadeIn()
@@ -30,6 +30,7 @@ async function start() {
 	game.blackScreen.alpha = 1
 	await sleep(1)
 	game.clearEntities()
+	await game.stopAudioFade("waves")
 
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
 
@@ -69,7 +70,8 @@ async function start() {
 
 	// end game here
 
-	await sleep(3)
+	await sleep(2.5)
+	await game.playAudioFade("waves")
 	let background = game.newEntity("background", new Entity(0, 0, newImage("./assets/end/background_1.png")))
 	background.color = "green"
 	let legislation = game.newEntity("legislation", new Entity(611, 0, newImage("./assets/end/legislation.png")))
@@ -98,17 +100,17 @@ async function start() {
 	await background.speak("The Bay was brought from the brink of total ecological failure with new legislation in 2029.")
 	let blackout = game.newEntity("blackout", new BlackScreen())
 	await blackout.fadeOut()
+	game.stopAudioFade("waves")
 	await sleep(1)
 
 	// water splashing sound
+	game.playAudio("waterSplash")
 
-	await sleep(1)
+	await sleep(3)
 	let player = game.newEntity("player", new Entity(-200, -200, newImage("./assets/strangeEncountersDay/sand_dollar.png")))
 	player.color = "cyan"
 	await player.speak("That must be why I'm here... I did it... I did it...", 3)
-	await background.speak("Thanks for playing Crab Simulator!", 3, 0.1)
-
-	// ambient sound comes back
+	await background.speak("Thank you for playing Crab Simulator!", 3, 0.1)
 
 	await sleep(1)
 	game.blackScreen.alpha = 1

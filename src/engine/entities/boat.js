@@ -34,9 +34,9 @@ class Boat extends Entity {
 	}
 
 	draw() {
-		super.draw()
+		game.ctx.drawImage(this.image, this.x, this.y, this.image.width * this.scale, this.image.height * this.scale)
 		// rudder
-		game.ctx.drawImage(this.rudder, this.x - 35, this.y + 112, this.rudder.width * this.scale, this.rudder.height * this.scale)
+		game.ctx.drawImage(this.rudder, this.x + 219, this.y + 109)
 	}
 
 }

@@ -12,13 +12,23 @@ class Crab extends Character {
 	update() {
 		super.update()
 		if(!(game.frameCount % 15)) {
-			if(this.state.speaking || this.state.clacking) {
+			if(this.state.speaking) {
 				if(this.animation.clacking) {
 					this.animation.clacking = false
 					this.images["arms"].image = this.imageBank.arms_1
 				} else {
 					this.animation.clacking = true
 					this.images["arms"].image = this.imageBank.arms
+					if(this.state.clacking) game.playAudio("clack1")
+				}
+			} else if(this.state.clacking) {
+				if(this.animation.clacking) {
+					this.animation.clacking = false
+					this.images["arms"].image = this.imageBank.arms_1
+				} else {
+					this.animation.clacking = true
+					this.images["arms"].image = this.imageBank.arms
+					game.playAudio("clack1")
 				}
 			} else {
 				this.animation.clacking = false
