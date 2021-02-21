@@ -73,17 +73,28 @@ class TitleScreenController {
 				game.ctx.fillText("        Credits", 1074, 801)
 			}
 		} else {
-			game.ctx.font = "73px Lucida Console"
-			game.ctx.textAlign = "center"
-			// y of text = 500 + (73 * line) + 15
-			game.ctx.fillText("Made by Jacob Johnson", 1403, 500)
-			game.ctx.fillText("and Roger Cronin.", 1403, 588)
-			game.ctx.fillText("More text here,", 1403, 676)
-			game.ctx.fillText("eventually.", 1403, 764)
+			game.ctx.font = "64px Lucida Console"
+			game.ctx.textAlign = "right"
+			// y of text = 515 + (73 * line)
+			game.ctx.fillText("Made by Jacob Johnson", 1847, 354)
+			game.ctx.fillText("and Roger Cronin.", 1847, 427)
+			game.ctx.fillText("Special thanks to", 1847, 588)
+			game.ctx.fillText("Freesound users scratchikken,", 1847, 676)
+			game.ctx.fillText("amholma, yurkobb, and martats for", 1847, 764)
+			game.ctx.fillText("providing some audio for us.", 1847, 837)
 			game.ctx.fillStyle = `rgba(0, 0, 0, ${this.alpha})`
-			game.ctx.fillText("Back", 1403, 852)
+			game.ctx.textAlign = "center"
+			game.ctx.fillText("Back", 1403, 940)
 		}
 	}
+
+	/*
+		Made by Jacob Johnson
+		and Roger Cronin.
+		Special thanks to Freesound users
+		scratchikken, amholma, yurkobb, and martats
+		for providing some audio.
+	*/
 
 	update() {
 

@@ -5,7 +5,7 @@ import { TitleScreenWaves, TitleScreenController } from "./engine/characters/tit
 import { BlackScreen } from "./engine/entities/blackScreen.js"
 
 // debug makes it so you don't have to sit through 6 seconds of title text before starting, and it uses a different queue than normal
-const debug = true
+const debug = false
 
 async function onload() {
 	window.game = new Game()
@@ -30,7 +30,6 @@ async function start() {
 	game.blackScreen.alpha = 1
 	await sleep(1)
 	game.clearEntities()
-	await game.stopAudioFade("waves")
 
 	if(!debug) await game.titleText("Act 1 - Ex Nihilo", 3)
 

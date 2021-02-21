@@ -19,14 +19,14 @@ class Game {
 			peopleConvinced: 1 // old man will always think you're cool :sunglasses:
 		}
 		this.sounds = {
-			blip: new Audio("../assets/audio/phoenixWrightBlip.wav"),
+			blip: new Audio("../assets/audio/blip.wav"),
 			underwater: new Audio("./assets/audio/underwater.wav"),
 			waves: new Audio("./assets/audio/waves.wav"),
 			waterSplash: new Audio("./assets/audio/waterSplash.wav"),
 			boatEngine: new Audio("./assets/audio/boatEngine.wav"),
 			clack1: new Audio("./assets/audio/clack1.wav")
 		}
-		this.sounds.blip.volume = 0.1
+		this.sounds.blip.volume = 0.4
 		this.sounds.underwater.volume = 0.5
 		this.setAudioLoop(this.sounds.waves)
 		this.setAudioLoop(this.sounds.underwater)
