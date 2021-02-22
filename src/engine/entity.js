@@ -255,7 +255,7 @@ const colorBank = {
 	green: "#008000",
 	blue: "#1E90FF",
 	purple: "#BA55D3",
-	cyan: "#008B8B",
+	cyan: "#CC0000", // now red
 	white: "#FFFFFF",
 	black: "#000000",
 	gray: "#303030",

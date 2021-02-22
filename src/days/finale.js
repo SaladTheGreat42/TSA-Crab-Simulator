@@ -169,7 +169,7 @@ export async function execute() {
 	// crab trying to escape, bc1 pulling them down
 
 	await player.speak("Hey you, quit pulling me down.")
-	let answer1 = await bc3.prompt("If I can't get out, neither can you.", ["This is important", "Teaching lesson"])
+	let answer1 = await bc3.prompt("If I can't get out, neither can you.", ["This is important", "Teach a lesson"])
 	if(answer1) {
 		await player.speak("I'm here on a mission to fix the Bay. Please help me get out of this bucket.", 1)
 		await bc3.speak("Fixing the Bay? Ah well, I can't do much at this point anyway.", 1)

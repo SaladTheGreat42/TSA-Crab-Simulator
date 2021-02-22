@@ -92,7 +92,7 @@ export async function execute() {
 	await sleep(0.5)
 
 	await pirate.speak("ARRR, WHAT DO YE MEAN ME COUPON'S EXPIRED!?")
-	await employee.speak("I'm sorry sir, but this coupon is", 0)
+	await employee.speak("I'm sorry sir, but this coupon is-", 0)
 	answer = await pirate.prompt("I NEED ME VITAMIN SEA SUPPLEY-MENTS!", ["Help out", "Watch"])
 	if(answer) { // intervene
 		game.variables.pirateIntervene = true

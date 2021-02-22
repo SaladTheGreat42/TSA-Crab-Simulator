@@ -32,7 +32,7 @@ class Game {
 		this.setAudioLoop(this.sounds.underwater)
 		this.setAudioLoop(this.sounds.boatEngine)
 		this.sounds.boatEngine.volume = .1
-		this.sounds.clack1.volume = .5
+		this.sounds.clack1.volume = .3
 	}
 
 	loop(now) { // puts update and draw functions into one function
