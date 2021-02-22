@@ -18,6 +18,10 @@ async function onload() {
 }
 
 async function start() {
+	game.day = 0
+	game.variables = {
+		peopleConvinced: 1 // old man will always think you're cool :sunglasses:
+	}
 	await sleep(1)
 	game.playAudioFade("waves")
 	await sleep(0.5)
