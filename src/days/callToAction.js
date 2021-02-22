@@ -159,7 +159,7 @@ export async function execute() {
 		game.variables.peopleConvinced++
 	} else {
 		await pirate.speak("Sure do, you son of a biscuit eater! You said NOTHING in the face of mutiny yesterday, argh.")
-		await player.speak("This is important. I need you to ", 0)
+		await player.speak("This is important. I need you to-", 0)
 		await pirate.speak("I should string ye from the yardarm for your cowardice! No way am I helping you.", 1)
 		await player.speak("Ah.", 1)
 	}
