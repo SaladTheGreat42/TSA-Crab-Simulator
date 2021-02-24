@@ -117,7 +117,7 @@ async function start() {
 
 	await sleep(1)
 	game.blackScreen.alpha = 1
-	game.clearEntities()
+	game.clearEntities() // end
 	game.fadeIn()
 	start()
 }

@@ -19,12 +19,12 @@ class Game {
 			peopleConvinced: 1 // old man will always think you're cool :sunglasses:
 		}
 		this.sounds = {
-			blip: new Audio("../assets/audio/blip.wav"),
-			underwater: new Audio("./assets/audio/underwater.wav"),
-			waves: new Audio("./assets/audio/waves.wav"),
-			waterSplash: new Audio("./assets/audio/waterSplash.wav"),
-			boatEngine: new Audio("./assets/audio/boatEngine.wav"),
-			clack1: new Audio("./assets/audio/clack1.wav")
+			blip: new Audio("../assets/audio/blip.wav"), // https://golen.nu/portal/phoenix/
+			underwater: new Audio("./assets/audio/underwater.wav"), // https://freesound.org/people/scratchikken/sounds/115609/
+			waves: new Audio("./assets/audio/waves.wav"), // https://freesound.org/people/amholma/sounds/376802/
+			waterSplash: new Audio("./assets/audio/waterSplash.wav"), // https://freesound.org/people/yurkobb/sounds/280219/
+			boatEngine: new Audio("./assets/audio/boatEngine.wav"), // https://freesound.org/people/martats/sounds/128046/
+			clack1: new Audio("./assets/audio/clack1.wav") // custom
 		}
 		this.sounds.blip.volume = 0.4
 		this.sounds.underwater.volume = 0.5
