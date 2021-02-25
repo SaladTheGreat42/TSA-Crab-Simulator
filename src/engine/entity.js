@@ -133,8 +133,6 @@ class Entity {
 
 		var toggle = true; //Prep choice code
 
-		// Choice code, wtf is .includes
-		// mb, .includes returns true/false depending if the argument is present in the array, so it's just a 1 line solution to what you were doing before with branched programming
 		while(true) {
 			let input = await inputPromise()
 			if(input == "Enter") {

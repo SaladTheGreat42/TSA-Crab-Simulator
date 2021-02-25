@@ -4,7 +4,7 @@ import { Crab } from "../engine/characters/crab.js"
 import { BlackScreen } from "../engine/entities/blackScreen.js"
 import { Boat } from "../engine/entities/boat.js"
 
-var moving = true // kinda ugly code sorry
+var moving = true 
 
 export async function execute() {
 
