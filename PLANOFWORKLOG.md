@@ -20,3 +20,5 @@
 |2/20|Reworked all prompts to fit new function, did all audio|6 hr. 15 min.|R.C.|Prompt calls needed to be edited to avoid bugs, put in all necessary sounds and sound effects|
 |2/21|Uploaded to website and implemented feedback|1 hr.|R.C.|Received feedback from various playtesters|
 |2/23|Portfolio|45 min.|J.J|Portfolio|
+
+Advisor Signature: Stephen Landry
